@@ -11,14 +11,14 @@
 		<!--chassis-->
 		<link name="chassis">
 			<inertial>
-				<mass>10.0</mass>
+				<mass>15.0</mass>
 				<inertia>
-					<ixx>0.06675</ixx>
+					<ixx>0.100125</ixx>
 					<ixy>0</ixy>
 					<ixz>0</ixz>
-					<iyy>0.12675</iyy>
+					<iyy>0.190125</iyy>
 					<iyz>0</iyz>
-					<izz>0.156</izz>
+					<izz>0.23399999999999999</izz>
 				</inertia>
 			</inertial>
 			<visual name="chassis_visual">
@@ -65,55 +65,6 @@
 				<update_rate>30</update_rate>
 				<visualize>0</visualize>
 			</sensor>
-		</link>
-		<!--light_indicator-->
-		<joint name="light_indicator_joint" type="fixed">
-			<pose relative_to="chassis">-0.207 0 0.1 0 0 0</pose>
-			<parent>chassis</parent>
-			<child>light_indicator</child>
-		</joint>
-		<link name="light_indicator">
-			<pose relative_to="light_indicator_joint">0 0 0 0 0 0</pose>
-			<inertial>
-				<pose>0 0 0.04 0 0 0</pose>
-				<mass>0.1</mass>
-				<inertia>
-					<ixx>0.0006666666666666669</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>3.416666666666667e-05</iyy>
-					<iyz>0</iyz>
-					<izz>0.0006741666666666668</izz>
-				</inertia>
-			</inertial>
-			<visual name="light_indicator_holder_visual">
-				<geometry>
-					<mesh>
-						<uri>model://rmua19_standard_robot/meshes/light_indicator_holder.dae</uri>
-					</mesh>
-				</geometry>
-			</visual>
-			<visual name="light_indicator_bar_visual">
-				<geometry>
-					<mesh>
-						<uri>model://rmua19_standard_robot/meshes/light_indicator_bar.dae</uri>
-					</mesh>
-				</geometry>
-				<material>
-					<ambient>1 1 1 1</ambient>
-					<diffuse>1 1 1 1</diffuse>
-					<specular>1 1 1 1</specular>
-					<emissive>1 1 1 1</emissive>
-				</material>
-			</visual>
-			<collision name="light_indicator_bar_collision">
-				<pose>0 0 0.06 0 0 0</pose>
-				<geometry>
-					<box>
-						<size>0.05 0.28 0.04</size>
-					</box>
-				</geometry>
-			</collision>
 		</link>
 		<!--front_left wheel link and joint-->
 		<joint name="front_left_wheel_joint" type="revolute">
@@ -323,199 +274,6 @@
 				</surface>
 			</collision>
 		</link>
-		<!--4 armors -->
-		<!--front armors -->
-		<joint name="armor_0_joint" type="fixed">
-			<pose relative_to="chassis">0.197 0.0 0.061 0 0 0.0</pose>
-			<parent>chassis</parent>
-			<child>armor_0</child>
-		</joint>
-		<link name="armor_0">
-			<pose relative_to="armor_0_joint">0 0 0 0 0 0</pose>
-			<inertial>
-				<pose>0.04 0 0 0 0 0</pose>
-				<mass>0.1</mass>
-				<inertia>
-					<ixx>0.0003065083333333333</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>0.00020463541666666669</iyy>
-					<iyz>0</iyz>
-					<izz>0.00022947708333333333</izz>
-				</inertia>
-			</inertial>
-			<visual name="armor_0_visual">
-				<geometry>
-					<mesh>
-						<uri>model://rmua19_standard_robot/meshes/armor_base.dae</uri>
-					</mesh>
-				</geometry>
-			</visual>
-			<visual name="armor_0_light_bar_visual">
-				<geometry>
-					<mesh>
-						<uri>model://rmua19_standard_robot/meshes/armor_light_bar.dae</uri>
-					</mesh>
-				</geometry>
-				<material>
-					<ambient>1 1 1 1</ambient>
-					<diffuse>1 1 1 1</diffuse>
-					<specular>1 1 1 1</specular>
-					<emissive>1 1 1 1</emissive>
-				</material>
-			</visual>
-			<collision name="armor_0_collision">
-				<geometry>
-					<mesh>
-						<uri>model://rmua19_standard_robot/meshes/armor_base.dae</uri>
-					</mesh>
-				</geometry>
-			</collision>
-		</link>
-		<!--rear armors -->
-		<joint name="armor_2_joint" type="fixed">
-			<pose relative_to="chassis">-0.197 0.0 0.061 0 0 3.14159</pose>
-			<parent>chassis</parent>
-			<child>armor_2</child>
-		</joint>
-		<link name="armor_2">
-			<pose relative_to="armor_2_joint">0 0 0 0 0 0</pose>
-			<inertial>
-				<pose>0.04 0 0 0 0 0</pose>
-				<mass>0.1</mass>
-				<inertia>
-					<ixx>0.0003065083333333333</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>0.00020463541666666669</iyy>
-					<iyz>0</iyz>
-					<izz>0.00022947708333333333</izz>
-				</inertia>
-			</inertial>
-			<visual name="armor_2_visual">
-				<geometry>
-					<mesh>
-						<uri>model://rmua19_standard_robot/meshes/armor_base.dae</uri>
-					</mesh>
-				</geometry>
-			</visual>
-			<visual name="armor_2_light_bar_visual">
-				<geometry>
-					<mesh>
-						<uri>model://rmua19_standard_robot/meshes/armor_light_bar.dae</uri>
-					</mesh>
-				</geometry>
-				<material>
-					<ambient>1 1 1 1</ambient>
-					<diffuse>1 1 1 1</diffuse>
-					<specular>1 1 1 1</specular>
-					<emissive>1 1 1 1</emissive>
-				</material>
-			</visual>
-			<collision name="armor_2_collision">
-				<geometry>
-					<mesh>
-						<uri>model://rmua19_standard_robot/meshes/armor_base.dae</uri>
-					</mesh>
-				</geometry>
-			</collision>
-		</link>
-		<!--left armors -->
-		<joint name="armor_1_joint" type="fixed">
-			<pose relative_to="chassis">0.0 0.116 0.06 0 0 1.5708</pose>
-			<parent>chassis</parent>
-			<child>armor_1</child>
-		</joint>
-		<link name="armor_1">
-			<pose relative_to="armor_1_joint">0 0 0 0 0 0</pose>
-			<inertial>
-				<pose>0.04 0 0 0 0 0</pose>
-				<mass>0.1</mass>
-				<inertia>
-					<ixx>0.0003065083333333333</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>0.00020463541666666669</iyy>
-					<iyz>0</iyz>
-					<izz>0.00022947708333333333</izz>
-				</inertia>
-			</inertial>
-			<visual name="armor_1_visual">
-				<geometry>
-					<mesh>
-						<uri>model://rmua19_standard_robot/meshes/armor_base.dae</uri>
-					</mesh>
-				</geometry>
-			</visual>
-			<visual name="armor_1_light_bar_visual">
-				<geometry>
-					<mesh>
-						<uri>model://rmua19_standard_robot/meshes/armor_light_bar.dae</uri>
-					</mesh>
-				</geometry>
-				<material>
-					<ambient>1 1 1 1</ambient>
-					<diffuse>1 1 1 1</diffuse>
-					<specular>1 1 1 1</specular>
-					<emissive>1 1 1 1</emissive>
-				</material>
-			</visual>
-			<collision name="armor_1_collision">
-				<geometry>
-					<mesh>
-						<uri>model://rmua19_standard_robot/meshes/armor_base.dae</uri>
-					</mesh>
-				</geometry>
-			</collision>
-		</link>
-		<!--right armors -->
-		<joint name="armor_3_joint" type="fixed">
-			<pose relative_to="chassis">0.0 -0.116 0.06 0 0 -1.5708</pose>
-			<parent>chassis</parent>
-			<child>armor_3</child>
-		</joint>
-		<link name="armor_3">
-			<pose relative_to="armor_3_joint">0 0 0 0 0 0</pose>
-			<inertial>
-				<pose>0.04 0 0 0 0 0</pose>
-				<mass>0.1</mass>
-				<inertia>
-					<ixx>0.0003065083333333333</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>0.00020463541666666669</iyy>
-					<iyz>0</iyz>
-					<izz>0.00022947708333333333</izz>
-				</inertia>
-			</inertial>
-			<visual name="armor_3_visual">
-				<geometry>
-					<mesh>
-						<uri>model://rmua19_standard_robot/meshes/armor_base.dae</uri>
-					</mesh>
-				</geometry>
-			</visual>
-			<visual name="armor_3_light_bar_visual">
-				<geometry>
-					<mesh>
-						<uri>model://rmua19_standard_robot/meshes/armor_light_bar.dae</uri>
-					</mesh>
-				</geometry>
-				<material>
-					<ambient>1 1 1 1</ambient>
-					<diffuse>1 1 1 1</diffuse>
-					<specular>1 1 1 1</specular>
-					<emissive>1 1 1 1</emissive>
-				</material>
-			</visual>
-			<collision name="armor_3_collision">
-				<geometry>
-					<mesh>
-						<uri>model://rmua19_standard_robot/meshes/armor_base.dae</uri>
-					</mesh>
-				</geometry>
-			</collision>
-		</link>
 		<!--gimbal yaw module-->
 		<joint name="gimbal_yaw_joint" type="revolute">
 			<pose relative_to="chassis">0 0 0.1376 0 0 0</pose>
@@ -533,14 +291,14 @@
 			<pose relative_to="gimbal_yaw_joint">0 0 0 0 0 0</pose>
 			<inertial>
 				<pose>0 0 0.06 0 0 0</pose>
-				<mass>0.5</mass>
+				<mass>1.0</mass>
 				<inertia>
-					<ixx>0.001516666666666667</ixx>
+					<ixx>0.003033333333333334</ixx>
 					<ixy>0</ixy>
 					<ixz>0</ixz>
-					<iyy>0.001516666666666667</iyy>
+					<iyy>0.003033333333333334</iyy>
 					<iyz>0</iyz>
-					<izz>0.0006250000000000001</izz>
+					<izz>0.0012500000000000002</izz>
 				</inertia>
 			</inertial>
 			<visual name="gimbal_yaw_visual">
@@ -574,15 +332,15 @@
 		<link name="gimbal_pitch">
 			<pose relative_to="gimbal_pitch_joint">0 0 0 0 0 0</pose>
 			<inertial>
-				<pose>0.05 0 0 0 0 0</pose>
-				<mass>0.2</mass>
+				<pose>0.02 0 0 0 0 0</pose>
+				<mass>0.5</mass>
 				<inertia>
-					<ixx>0.0003016666666666667</ixx>
+					<ixx>0.0007541666666666668</ixx>
 					<ixy>0</ixy>
 					<ixz>0</ixz>
-					<iyy>0.0012083333333333336</iyy>
+					<iyy>0.0030208333333333337</iyy>
 					<iyz>0</iyz>
-					<izz>0.0011766666666666668</izz>
+					<izz>0.0029416666666666666</izz>
 				</inertia>
 			</inertial>
 			<visual name="gimbal_pitch_visual">
@@ -597,6 +355,440 @@
 					<mesh>
 						<uri>model://rmua19_standard_robot/meshes/gimbal_pitch.dae</uri>
 					</mesh>
+				</geometry>
+			</collision>
+		</link>
+		<!--for referee system -->
+		<!--front armors -->
+		<joint name="armor_support_frame_0_joint" type="fixed">
+			<pose relative_to="chassis">0.197 0 0.061 0 0 0</pose>
+			<parent>chassis</parent>
+			<child>armor_support_frame_0</child>
+		</joint>
+		<link name="armor_support_frame_0">
+			<pose relative_to="armor_support_frame_0_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<pose>0.035 0 0 0 0 0</pose>
+				<mass>0.1</mass>
+				<inertia>
+					<ixx>0.00023080833333333334</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>0.00017014166666666668</iyy>
+					<iyz>0</iyz>
+					<izz>0.00014468333333333334</izz>
+				</inertia>
+			</inertial>
+			<visual name="visual">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/armor_support_frame.dae</uri>
+					</mesh>
+				</geometry>
+			</visual>
+			<collision name="collision">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/armor_support_frame.dae</uri>
+					</mesh>
+				</geometry>
+			</collision>
+		</link>
+		<joint name="small_armor_0_joint" type="fixed">
+			<pose relative_to="armor_support_frame_0">0.075 0 -0.071 0 -0.262 0</pose>
+			<parent>armor_support_frame_0</parent>
+			<child>small_armor_0</child>
+		</joint>
+		<link name="small_armor_0">
+			<pose relative_to="small_armor_0_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<pose>0 0 0.065 0 0 0</pose>
+				<mass>0.1</mass>
+				<inertia>
+					<ixx>0.0003065083333333333</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>0.00014203333333333333</iyy>
+					<iyz>0</iyz>
+					<izz>0.00016687499999999995</izz>
+				</inertia>
+			</inertial>
+			<visual name="visual">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/small_armor.dae</uri>
+					</mesh>
+				</geometry>
+			</visual>
+			<visual name="target_visual">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/small_armor_target.dae</uri>
+					</mesh>
+				</geometry>
+			</visual>
+			<visual name="light_bar_visual">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/small_armor_light_bar.dae</uri>
+					</mesh>
+				</geometry>
+				<material>
+					<ambient>1 1 1 1</ambient>
+					<diffuse>1 1 1 1</diffuse>
+					<specular>1 1 1 1</specular>
+					<emissive>1 1 1 1</emissive>
+				</material>
+			</visual>
+			<collision name="collision">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/small_armor.dae</uri>
+					</mesh>
+				</geometry>
+			</collision>
+			<collision name="target_collision">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/small_armor_target.dae</uri>
+					</mesh>
+				</geometry>
+			</collision>
+		</link>
+		<!--left armors -->
+		<joint name="armor_support_frame_1_joint" type="fixed">
+			<pose relative_to="chassis">0 0.116 0.061 0 0 1.5708</pose>
+			<parent>chassis</parent>
+			<child>armor_support_frame_1</child>
+		</joint>
+		<link name="armor_support_frame_1">
+			<pose relative_to="armor_support_frame_1_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<pose>0.035 0 0 0 0 0</pose>
+				<mass>0.1</mass>
+				<inertia>
+					<ixx>0.00023080833333333334</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>0.00017014166666666668</iyy>
+					<iyz>0</iyz>
+					<izz>0.00014468333333333334</izz>
+				</inertia>
+			</inertial>
+			<visual name="visual">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/armor_support_frame.dae</uri>
+					</mesh>
+				</geometry>
+			</visual>
+			<collision name="collision">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/armor_support_frame.dae</uri>
+					</mesh>
+				</geometry>
+			</collision>
+		</link>
+		<joint name="small_armor_1_joint" type="fixed">
+			<pose relative_to="armor_support_frame_1">0.075 0 -0.071 0 -0.262 0</pose>
+			<parent>armor_support_frame_1</parent>
+			<child>small_armor_1</child>
+		</joint>
+		<link name="small_armor_1">
+			<pose relative_to="small_armor_1_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<pose>0 0 0.065 0 0 0</pose>
+				<mass>0.1</mass>
+				<inertia>
+					<ixx>0.0003065083333333333</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>0.00014203333333333333</iyy>
+					<iyz>0</iyz>
+					<izz>0.00016687499999999995</izz>
+				</inertia>
+			</inertial>
+			<visual name="visual">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/small_armor.dae</uri>
+					</mesh>
+				</geometry>
+			</visual>
+			<visual name="target_visual">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/small_armor_target.dae</uri>
+					</mesh>
+				</geometry>
+			</visual>
+			<visual name="light_bar_visual">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/small_armor_light_bar.dae</uri>
+					</mesh>
+				</geometry>
+				<material>
+					<ambient>1 1 1 1</ambient>
+					<diffuse>1 1 1 1</diffuse>
+					<specular>1 1 1 1</specular>
+					<emissive>1 1 1 1</emissive>
+				</material>
+			</visual>
+			<collision name="collision">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/small_armor.dae</uri>
+					</mesh>
+				</geometry>
+			</collision>
+			<collision name="target_collision">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/small_armor_target.dae</uri>
+					</mesh>
+				</geometry>
+			</collision>
+		</link>
+		<!--rear armors -->
+		<joint name="armor_support_frame_2_joint" type="fixed">
+			<pose relative_to="chassis">-0.197 0 0.061 0 0 3.14</pose>
+			<parent>chassis</parent>
+			<child>armor_support_frame_2</child>
+		</joint>
+		<link name="armor_support_frame_2">
+			<pose relative_to="armor_support_frame_2_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<pose>0.035 0 0 0 0 0</pose>
+				<mass>0.1</mass>
+				<inertia>
+					<ixx>0.00023080833333333334</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>0.00017014166666666668</iyy>
+					<iyz>0</iyz>
+					<izz>0.00014468333333333334</izz>
+				</inertia>
+			</inertial>
+			<visual name="visual">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/armor_support_frame.dae</uri>
+					</mesh>
+				</geometry>
+			</visual>
+			<collision name="collision">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/armor_support_frame.dae</uri>
+					</mesh>
+				</geometry>
+			</collision>
+		</link>
+		<joint name="small_armor_2_joint" type="fixed">
+			<pose relative_to="armor_support_frame_2">0.075 0 -0.071 0 -0.262 0</pose>
+			<parent>armor_support_frame_2</parent>
+			<child>small_armor_2</child>
+		</joint>
+		<link name="small_armor_2">
+			<pose relative_to="small_armor_2_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<pose>0 0 0.065 0 0 0</pose>
+				<mass>0.1</mass>
+				<inertia>
+					<ixx>0.0003065083333333333</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>0.00014203333333333333</iyy>
+					<iyz>0</iyz>
+					<izz>0.00016687499999999995</izz>
+				</inertia>
+			</inertial>
+			<visual name="visual">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/small_armor.dae</uri>
+					</mesh>
+				</geometry>
+			</visual>
+			<visual name="target_visual">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/small_armor_target.dae</uri>
+					</mesh>
+				</geometry>
+			</visual>
+			<visual name="light_bar_visual">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/small_armor_light_bar.dae</uri>
+					</mesh>
+				</geometry>
+				<material>
+					<ambient>1 1 1 1</ambient>
+					<diffuse>1 1 1 1</diffuse>
+					<specular>1 1 1 1</specular>
+					<emissive>1 1 1 1</emissive>
+				</material>
+			</visual>
+			<collision name="collision">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/small_armor.dae</uri>
+					</mesh>
+				</geometry>
+			</collision>
+			<collision name="target_collision">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/small_armor_target.dae</uri>
+					</mesh>
+				</geometry>
+			</collision>
+		</link>
+		<!--right armors -->
+		<joint name="armor_support_frame_3_joint" type="fixed">
+			<pose relative_to="chassis">0 -0.116 0.061 0 0 -1.5708</pose>
+			<parent>chassis</parent>
+			<child>armor_support_frame_3</child>
+		</joint>
+		<link name="armor_support_frame_3">
+			<pose relative_to="armor_support_frame_3_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<pose>0.035 0 0 0 0 0</pose>
+				<mass>0.1</mass>
+				<inertia>
+					<ixx>0.00023080833333333334</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>0.00017014166666666668</iyy>
+					<iyz>0</iyz>
+					<izz>0.00014468333333333334</izz>
+				</inertia>
+			</inertial>
+			<visual name="visual">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/armor_support_frame.dae</uri>
+					</mesh>
+				</geometry>
+			</visual>
+			<collision name="collision">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/armor_support_frame.dae</uri>
+					</mesh>
+				</geometry>
+			</collision>
+		</link>
+		<joint name="small_armor_3_joint" type="fixed">
+			<pose relative_to="armor_support_frame_3">0.075 0 -0.071 0 -0.262 0</pose>
+			<parent>armor_support_frame_3</parent>
+			<child>small_armor_3</child>
+		</joint>
+		<link name="small_armor_3">
+			<pose relative_to="small_armor_3_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<pose>0 0 0.065 0 0 0</pose>
+				<mass>0.1</mass>
+				<inertia>
+					<ixx>0.0003065083333333333</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>0.00014203333333333333</iyy>
+					<iyz>0</iyz>
+					<izz>0.00016687499999999995</izz>
+				</inertia>
+			</inertial>
+			<visual name="visual">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/small_armor.dae</uri>
+					</mesh>
+				</geometry>
+			</visual>
+			<visual name="target_visual">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/small_armor_target.dae</uri>
+					</mesh>
+				</geometry>
+			</visual>
+			<visual name="light_bar_visual">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/small_armor_light_bar.dae</uri>
+					</mesh>
+				</geometry>
+				<material>
+					<ambient>1 1 1 1</ambient>
+					<diffuse>1 1 1 1</diffuse>
+					<specular>1 1 1 1</specular>
+					<emissive>1 1 1 1</emissive>
+				</material>
+			</visual>
+			<collision name="collision">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/small_armor.dae</uri>
+					</mesh>
+				</geometry>
+			</collision>
+			<collision name="target_collision">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_armor_module/meshes/small_armor_target.dae</uri>
+					</mesh>
+				</geometry>
+			</collision>
+		</link>
+		<!--light_indicator-->
+		<joint name="light_indicator_joint" type="fixed">
+			<pose relative_to="chassis">-0.207 0 0.1 0 0 0</pose>
+			<parent>chassis</parent>
+			<child>light_indicator</child>
+		</joint>
+		<link name="light_indicator">
+			<pose relative_to="light_indicator_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<pose>0 0 0.04 0 0 0</pose>
+				<mass>0.1</mass>
+				<inertia>
+					<ixx>0.0006666666666666669</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>3.416666666666667e-05</iyy>
+					<iyz>0</iyz>
+					<izz>0.0006741666666666668</izz>
+				</inertia>
+			</inertial>
+			<visual name="light_indicator_holder_visual">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_light_indicator_module/meshes/light_indicator_holder.dae</uri>
+					</mesh>
+				</geometry>
+			</visual>
+			<visual name="light_indicator_bar_visual">
+				<geometry>
+					<mesh>
+						<uri>model://rm21_light_indicator_module/meshes/light_indicator_bar.dae</uri>
+					</mesh>
+				</geometry>
+				<material>
+					<ambient>1 1 1 1</ambient>
+					<diffuse>1 1 1 1</diffuse>
+					<specular>1 1 1 1</specular>
+					<emissive>1 1 1 1</emissive>
+				</material>
+			</visual>
+			<collision name="light_indicator_bar_collision">
+				<pose>0 0 0.06 0 0 0</pose>
+				<geometry>
+					<box>
+						<size>0.05 0.28 0.04</size>
+					</box>
 				</geometry>
 			</collision>
 		</link>
@@ -620,17 +812,17 @@
 					<izz>0.00011624166666666668</izz>
 				</inertia>
 			</inertial>
-			<visual name="base_visual">
+			<visual name="visual">
 				<geometry>
 					<mesh>
-						<uri>model://rmua19_standard_robot/meshes/speed_monitor.dae</uri>
+						<uri>model://rm21_speed_monitor_module/meshes/speed_monitor_17mm.dae</uri>
 					</mesh>
 				</geometry>
 			</visual>
 			<visual name="light_bar_visual">
 				<geometry>
 					<mesh>
-						<uri>model://rmua19_standard_robot/meshes/speed_monitor_light_bar.dae</uri>
+						<uri>model://rm21_speed_monitor_module/meshes/speed_monitor_17mm_light_bar.dae</uri>
 					</mesh>
 				</geometry>
 				<material>
@@ -640,7 +832,7 @@
 					<emissive>1 1 1 1</emissive>
 				</material>
 			</visual>
-			<collision name="base_collision">
+			<collision name="collision">
 				<pose>0.055 0 0 0 0 0</pose>
 				<geometry>
 					<box>
