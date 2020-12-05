@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<sdf version="1.7">
+    <xacro_include_definition uri="model://rmua19_standard_robot2/model.sdf.xacro" />
+    <xacro_define_property name="light_bar_rgb" value="0 0 1" />
+    <model name="standard_robot_blue">
+        <xacro_include_model uri="model://rmua19_standard_robot2/model.sdf.xacro" />
+    </model>
+</sdf>

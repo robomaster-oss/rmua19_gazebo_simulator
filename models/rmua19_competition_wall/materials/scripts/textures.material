@@ -1,0 +1,14 @@
+material TexturedShape/Wood
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture wood.jpg
+      }
+    }
+  }
+}
+
