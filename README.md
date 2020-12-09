@@ -4,17 +4,27 @@
 
 rmua19_ignition_simulator是基于Ignition Gazebo的仿真环境，为RoboMaster University AI Challenge 2019中的机器人算法开发提供仿真环境，加快开发效率。目前rmua19_ignition_simulator还不完善，仅提供以下功能：
 
-* RoboMaster University AI Challenge 2019简易场地：只有围墙
-* RoboMaster University AI Challenge 2019 标准机器人模型
-  * 使用[xacro4sdf](https://github.com/gezp/xacro4sdf)进行SDF建模，模型图纸来自[RoboRTS](https://github.com/RoboMaster/RoboRTS) 中的 [RoboMaster AI机器人机械图纸](https://robomaster.github.io/RoboRTS-Tutorial/#/resources?id=robomaster-ai机器人机械图纸)
-  * 支持麦克拉姆轮地盘，使用[rmoss_ign](https://github.com/robomaster-oss/rmoss_ign)中的[麦克拉姆轮插件](https://github.com/robomaster-oss/rmoss_ign/tree/main/rmoss_ign_plugins/src/mecanum_drive)，支持里程计(模拟里程计，无nosie)
-  * 支持云台（pitch,yaw）角度控制，使用Ignition官方插件`JointPositionController`
-  * 搭载云台相机，激光雷达等传感器，可进行开发slam等应用开发。
-  * 具有装甲板灯条发光效果，可测试自瞄等识别算法。
-* ros2接口：robot_base模块
-  * 可使用通用的ros2 msg控制机器人移动
-
+> RoboMaster University AI Challenge 2019标准机器人机器人模型(rmua19_standard_robot)位于[rmoss_ign_resources](https://github.com/robomaster-oss/rmoss_ign_resources):
+>  * 模型图纸来自官方[RoboMaster产品/ 机器人 / AI 机器人](https://www.robomaster.com/zh-CN/products/components/detail/1839)资料，使用[xacro4sdf](https://github.com/gezp/xacro4sdf)进行SDF建模
+>  * 支持麦克拉姆轮地盘，使用[rmoss_ign](https://github.com/robomaster-oss/rmoss_ign)中的[麦克拉姆轮插件](https://github.com/robomaster-oss/rmoss_ign/tree/main/rmoss_ign_plugins/src/mecanum_drive)，支持里程计(模拟里程计，无nosie)
+>  * 支持云台（pitch,yaw）角度控制，使用Ignition官方插件`JointPositionController`
+>  * 具有装甲板灯条发光效果，可测试自瞄等识别算法。
+>  
 > 不支持发射子弹。
+
+
+在rmua19标准机器人上增加相关传感器，并实例化不同机器人模型:
+  * 搭载云台相机industrial_camera (位于[rmoss_ign_resources](https://github.com/robomaster-oss/rmoss_ign_resources))，其中相机放置有在yaw轴（对应rmua19_standard_robot1模型）和pitch轴（对应rmua19_standard_robot2模型）两种方案
+  * 搭载激光雷达rplidar_a2 (位于[rmoss_ign_resources](https://github.com/robomaster-oss/rmoss_ign_resources))。
+  * 实例化不同颜色（红，蓝），不同编号（1号，2号）机器人模型(rmua19_standard_robot2_red1,rmua19_standard_robot2_red2,rmua19_standard_robot2_blue1,rmua19_standard_robot2_blue2)
+
+构建RoboMaster University AI Challenge 2019简易场地(models/rmua19_battlefield):
+  * 只有围墙
+  
+提供ros2接口:
+  * robot_base模块：实现ros与ignition simulator之间的桥梁，可使用通用的ros2 msg([rmoss_interfaces](https://github.com/robomaster-oss/rmoss_interfaces))控制机器人移动
+
+
 
 ### 2.使用说明
 
