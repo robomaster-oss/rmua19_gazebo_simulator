@@ -18,13 +18,18 @@
                 </box>
             </geometry>
             <material>
-                <ambient>0.3 0.3 0.3 1</ambient>
-                <diffuse>0.3 0.3 0.3 1</diffuse>
-                <specular>0.3 0.3 0.3 1</specular>
+                <ambient>1 1 1 1</ambient>
+                <diffuse>1 1 1 1</diffuse>
+                <specular>1 1 1 1</specular>
+                <pbr>
+                    <metal>
+                        <albedo_map>model://rmua19_battlefield/materials/textures/wood.jpg</albedo_map>
+                    </metal>
+                </pbr>
             </material>
         </visual>
     </xacro_define_macro>
-    <model name='rmua19_competition_area'>
+    <model name='rmua19_battlefield'>
         <static>1</static>
         <!--ground_plane-->
         <link name="ground_plane">
@@ -32,7 +37,7 @@
                 <geometry>
                     <plane>
                         <normal>0 0 1</normal>
-                        <size>100 100</size>
+                        <size>8 5</size>
                     </plane>
                 </geometry>
             </collision>
@@ -40,7 +45,7 @@
                 <geometry>
                     <plane>
                         <normal>0 0 1</normal>
-                        <size>100 100</size>
+                        <size>8 5</size>
                     </plane>
                 </geometry>
                 <material>

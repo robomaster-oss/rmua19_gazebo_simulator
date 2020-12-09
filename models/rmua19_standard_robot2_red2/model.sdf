@@ -4,9 +4,7 @@
 <!-- |    EDITING THIS FILE BY HAND IS NOT RECOMMENDED                                 | -->
 <!-- =================================================================================== -->
 <sdf version="1.7">
-	<!--include defination-->
-	<!--rmua19_stdbot model-->
-	<model name="rmua19_standard_robot">
+	<model name="standard_robot_red">
 		<pose>0 0 0.15 0 0 0</pose>
 		<!--chassis-->
 		<link name="chassis">
@@ -434,10 +432,10 @@
 					</mesh>
 				</geometry>
 				<material>
-					<ambient>1 1 1 1</ambient>
-					<diffuse>1 1 1 1</diffuse>
+					<ambient>1 0 0 1</ambient>
+					<diffuse>1 0 0 1</diffuse>
 					<specular>1 1 1 1</specular>
-					<emissive>1 1 1 1</emissive>
+					<emissive>1 0 0 1</emissive>
 				</material>
 			</visual>
 			<visual name="sticker_visual">
@@ -454,7 +452,7 @@
 					<ambient>1.0 1.0 1.0</ambient>
 					<pbr>
 						<metal>
-							<albedo_map>model://rm21_armor_module/materials/textures/armor_sticker_num1.png</albedo_map>
+							<albedo_map>model://rm21_armor_module/materials/textures/armor_sticker_num2.png</albedo_map>
 						</metal>
 					</pbr>
 				</material>
@@ -549,10 +547,10 @@
 					</mesh>
 				</geometry>
 				<material>
-					<ambient>1 1 1 1</ambient>
-					<diffuse>1 1 1 1</diffuse>
+					<ambient>1 0 0 1</ambient>
+					<diffuse>1 0 0 1</diffuse>
 					<specular>1 1 1 1</specular>
-					<emissive>1 1 1 1</emissive>
+					<emissive>1 0 0 1</emissive>
 				</material>
 			</visual>
 			<visual name="sticker_visual">
@@ -569,7 +567,7 @@
 					<ambient>1.0 1.0 1.0</ambient>
 					<pbr>
 						<metal>
-							<albedo_map>model://rm21_armor_module/materials/textures/armor_sticker_num1.png</albedo_map>
+							<albedo_map>model://rm21_armor_module/materials/textures/armor_sticker_num2.png</albedo_map>
 						</metal>
 					</pbr>
 				</material>
@@ -664,10 +662,10 @@
 					</mesh>
 				</geometry>
 				<material>
-					<ambient>1 1 1 1</ambient>
-					<diffuse>1 1 1 1</diffuse>
+					<ambient>1 0 0 1</ambient>
+					<diffuse>1 0 0 1</diffuse>
 					<specular>1 1 1 1</specular>
-					<emissive>1 1 1 1</emissive>
+					<emissive>1 0 0 1</emissive>
 				</material>
 			</visual>
 			<visual name="sticker_visual">
@@ -684,7 +682,7 @@
 					<ambient>1.0 1.0 1.0</ambient>
 					<pbr>
 						<metal>
-							<albedo_map>model://rm21_armor_module/materials/textures/armor_sticker_num1.png</albedo_map>
+							<albedo_map>model://rm21_armor_module/materials/textures/armor_sticker_num2.png</albedo_map>
 						</metal>
 					</pbr>
 				</material>
@@ -779,10 +777,10 @@
 					</mesh>
 				</geometry>
 				<material>
-					<ambient>1 1 1 1</ambient>
-					<diffuse>1 1 1 1</diffuse>
+					<ambient>1 0 0 1</ambient>
+					<diffuse>1 0 0 1</diffuse>
 					<specular>1 1 1 1</specular>
-					<emissive>1 1 1 1</emissive>
+					<emissive>1 0 0 1</emissive>
 				</material>
 			</visual>
 			<visual name="sticker_visual">
@@ -799,7 +797,7 @@
 					<ambient>1.0 1.0 1.0</ambient>
 					<pbr>
 						<metal>
-							<albedo_map>model://rm21_armor_module/materials/textures/armor_sticker_num1.png</albedo_map>
+							<albedo_map>model://rm21_armor_module/materials/textures/armor_sticker_num2.png</albedo_map>
 						</metal>
 					</pbr>
 				</material>
@@ -853,10 +851,10 @@
 					</mesh>
 				</geometry>
 				<material>
-					<ambient>1 1 1 1</ambient>
-					<diffuse>1 1 1 1</diffuse>
+					<ambient>1 0 0 1</ambient>
+					<diffuse>1 0 0 1</diffuse>
 					<specular>1 1 1 1</specular>
-					<emissive>1 1 1 1</emissive>
+					<emissive>1 0 0 1</emissive>
 				</material>
 			</visual>
 			<collision name="light_indicator_bar_collision">
@@ -902,10 +900,10 @@
 					</mesh>
 				</geometry>
 				<material>
-					<ambient>1 1 1 1</ambient>
-					<diffuse>1 1 1 1</diffuse>
+					<ambient>1 0 0 1</ambient>
+					<diffuse>1 0 0 1</diffuse>
 					<specular>1 1 1 1</specular>
-					<emissive>1 1 1 1</emissive>
+					<emissive>1 0 0 1</emissive>
 				</material>
 			</visual>
 			<collision name="collision">
@@ -981,8 +979,8 @@
 		</link>
 		<!--industrial camera-->
 		<joint name="front_industrial_camera_joint" type="fixed">
-			<pose relative_to="gimbal_yaw">0.038 0 0.07 0 0 0</pose>
-			<parent>gimbal_yaw</parent>
+			<pose relative_to="gimbal_pitch">0.1 0 0.045 0 0 0</pose>
+			<parent>gimbal_pitch</parent>
 			<child>front_industrial_camera</child>
 		</joint>
 		<link name="front_industrial_camera">
@@ -1057,8 +1055,8 @@
 		</plugin>
 		<plugin filename="ignition-gazebo-joint-position-controller-system" name="ignition::gazebo::systems::JointPositionController">
 			<joint_name>gimbal_pitch_joint</joint_name>
-			<p_gain>0.8</p_gain>
-			<i_gain>0.05</i_gain>
+			<p_gain>2.0</p_gain>
+			<i_gain>0.1</i_gain>
 			<d_gain>0.2</d_gain>
 			<i_max>10</i_max>
 			<i_min>-10</i_min>

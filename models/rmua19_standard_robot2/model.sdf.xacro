@@ -4,7 +4,6 @@
     <xacro_include_definition uri="model://rplidar_a2/model.sdf.xacro" />
     <xacro_include_definition uri="model://industrial_camera/model.sdf.xacro" />
     <xacro_include_definition uri="model://rmua19_standard_robot/model.sdf.xacro" />
-    <xacro_define_property name="light_bar_rgb" value="1 1 1" />
     <!--rmua19_standard_robot model-->
     <model name="rmua19_standard_robot">
         <pose>0 0 0.15 0 0 0</pose>

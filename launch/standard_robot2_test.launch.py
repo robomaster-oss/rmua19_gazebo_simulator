@@ -22,7 +22,8 @@ def generate_launch_description():
     robot_name = "standard_robot_red1"
     pkg_rmua19_ignition_simulator = get_package_share_directory('rmua19_ignition_simulator')
     world_sdf_path = os.path.join(pkg_rmua19_ignition_simulator, 'worlds', 'rmua19_world.sdf')
-    robot_sdf_path = os.path.join(pkg_rmua19_ignition_simulator, 'models', 'rmua19_standard_robot2_red','model.sdf')
+    robot_r1_sdf_path = os.path.join(pkg_rmua19_ignition_simulator, 'models', 'rmua19_standard_robot2_red1','model.sdf')
+    robot_b2_sdf_path = os.path.join(pkg_rmua19_ignition_simulator, 'models', 'rmua19_standard_robot2_blue2','model.sdf')
     ign_config_path = os.path.join(pkg_rmua19_ignition_simulator, 'ign', 'gui.config')
     # Gazebo launch
     gazebo = IncludeLaunchDescription(
@@ -34,9 +35,13 @@ def generate_launch_description():
         }.items()
     )
     # Spawn robot
-    spawn = Node(package='ros_ign_gazebo', executable='create',
-        arguments=['-name', robot_name,'-x', '0','-y', '-0.5','-z', '0.1',
-                    '-file', robot_sdf_path],
+    spawn1 = Node(package='ros_ign_gazebo', executable='create',
+        arguments=['-name', robot_name,'-x', '-1','-y', '-0.5','-z', '0.1',
+                    '-file', robot_r1_sdf_path],
+        output='screen')
+    spawn2 = Node(package='ros_ign_gazebo', executable='create',
+        arguments=['-name', "standard_robot_blue1",'-x', '2','-y', '-0.2','-z', '0.1',
+                    '-file', robot_b2_sdf_path],
         output='screen')
     # base_node
     robot_base =Node(package='rmua19_ignition_simulator', executable='robot_base',
@@ -66,7 +71,7 @@ def generate_launch_description():
     )
     return LaunchDescription([
         gazebo,
-        spawn,
+        spawn1,spawn2,
         robot_base,
         ign_bridge
     ])
