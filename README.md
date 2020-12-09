@@ -40,7 +40,7 @@ colcon build
 **启动仿真环境**
 
 ```bash
-ros2 launch rmua19_ignition_simulator standardbot2_test.launch.py 
+ros2 launch rmua19_ignition_simulator standard_robot2_test.launch.py 
 ```
 
 * 注意：需要点击ignition界面上的橙红色的`启动`按钮
