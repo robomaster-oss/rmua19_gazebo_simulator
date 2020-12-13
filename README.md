@@ -9,7 +9,7 @@ rmua19_ignition_simulator是基于Ignition Gazebo的仿真环境，为RoboMaster
 >  * 支持麦克拉姆轮地盘，使用[rmoss_ign](https://github.com/robomaster-oss/rmoss_ign)中的[麦克拉姆轮插件](https://github.com/robomaster-oss/rmoss_ign/tree/main/rmoss_ign_plugins/src/mecanum_drive)，支持里程计(模拟里程计，无nosie)
 >  * 支持云台（pitch,yaw）角度控制，使用Ignition官方插件`JointPositionController`
 >  * 具有装甲板灯条发光效果，可测试自瞄等识别算法。
->  
+> 
 > 不支持发射子弹。
 
 
@@ -20,11 +20,11 @@ rmua19_ignition_simulator是基于Ignition Gazebo的仿真环境，为RoboMaster
 
 构建RoboMaster University AI Challenge 2019简易场地(models/rmua19_battlefield):
   * 只有围墙
-  
+
 提供ros2接口:
   * robot_base模块：实现ros与ignition simulator之间的桥梁，可使用通用的ros2 msg([rmoss_interfaces](https://github.com/robomaster-oss/rmoss_interfaces))控制机器人移动
 
-
+> 注意：[Ignition Gazebo](https://github.com/ignitionrobotics/ign-gazebo)目前依然处于快速开发期，仿真功能不完善，且可能存在Bug。
 
 ### 2.使用说明
 
@@ -104,7 +104,7 @@ CTRL-C to quit
 
 ### 3.维护者及开源许可证
 
-* maintainer: Zhenpeng Ge, zhenpeng.ge@qq.com
+Maintainer: Zhenpeng Ge, zhenpeng.ge@qq.com
 
-* rmua19_ignition_simulator is provided under MIT.
+rmua19_ignition_simulator is provided under MIT License.
 
