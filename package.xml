@@ -13,8 +13,8 @@
     <build_depend>rmoss_interfaces</build_depend>
     <depend>ros_ign_gazebo</depend>
     <exec_depend>ros_ign_bridge</exec_depend>
-    <exec_depend>rmoss_ignition_models</exec_depend>
-    <exec_depend>rmoss_ignition_plugins</exec_depend>
+    <exec_depend>rmoss_ign_resources</exec_depend>
+    <exec_depend>rmoss_ign_plugins</exec_depend>
     <test_depend>ament_lint_auto</test_depend>
     <test_depend>ament_lint_common</test_depend>
     <export>
