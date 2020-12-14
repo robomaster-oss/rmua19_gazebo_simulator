@@ -7,7 +7,7 @@
     <!--rmua19_standard_robot model-->
     <model name="rmua19_standard_robot">
         <pose>0 0 0.15 0 0 0</pose>
-        <xacro_macro name="rmua19_standard_robot_base"/>
+        <xacro_macro name="rmua19_standard_robot"/>
         <!--rplidar a2-->
         <xacro_macro name="rplidar_a2" prefix="front_" parent="chassis" pose="0.155 0 0.1 0 0 0"
             update_rate="10" samples="400" visualize="true"/>
