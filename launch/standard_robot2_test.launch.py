@@ -43,14 +43,30 @@ def generate_launch_description():
         arguments=['-name', "standard_robot_blue1",'-x', '2','-y', '-0.2','-z', '0.1',
                     '-file', robot_b2_sdf_path],
         output='screen')
-    # base_node
-    robot_base =Node(package='rmua19_ignition_simulator', executable='robot_base',
-        namespace= robot_name,
+    # robot base
+    chassis_controller =Node(package='rmoss_ign_robot_base', executable='chassis_simple_controller',
+        namespace= robot_name+"/robot_base",
         parameters=[
-            {'ign_topic_pitch_ctrl': "/model/%s/joint/gimbal_pitch_joint/0/cmd_pos"%(robot_name)},
-            {'ign_topic_yaw_ctrl': "/model/%s/joint/gimbal_yaw_joint/0/cmd_pos"%(robot_name)},
-            {'ign_topic_chassis_ctrl': "/%s/cmd_vel"%(robot_name)},
-            {'ign_topic_joint_state': "/world/demo/model/%s/joint_state"%(robot_name)}
+            {'ign_chassis_cmd_topic': "/%s/cmd_vel"%(robot_name)},
+        ],
+        output='screen') 
+    gimbal_controller =Node(package='rmoss_ign_robot_base', executable='gimbal_simple_controller',
+        namespace= robot_name+"/robot_base",
+        parameters=[
+            {'ign_pitch_topic': "/model/%s/joint/gimbal_pitch_joint/0/cmd_pos"%(robot_name)},
+            {'ign_yaw_topic': "/model/%s/joint/gimbal_yaw_joint/0/cmd_pos"%(robot_name)},
+        ],
+        output='screen') 
+    gimbal_publisher =Node(package='rmoss_ign_robot_base', executable='gimbal_state_publisher',
+        namespace= robot_name+"/robot_base",
+        parameters=[
+            {'ign_topic': "/world/demo/model/%s/joint_state"%(robot_name)},
+        ],
+        output='screen') 
+    shooter_controller =Node(package='rmoss_ign_robot_base', executable='shooter_simple_controller',
+        namespace= robot_name+"/robot_base",
+        parameters=[
+            {'ign_shoot_cmd_topic': "/%s/small_shooter/shoot"%(robot_name)},
         ],
         output='screen') 
     # Bridge
@@ -72,6 +88,6 @@ def generate_launch_description():
     return LaunchDescription([
         gazebo,
         spawn1,spawn2,
-        robot_base,
+        chassis_controller,gimbal_controller,gimbal_publisher,shooter_controller,
         ign_bridge
     ])

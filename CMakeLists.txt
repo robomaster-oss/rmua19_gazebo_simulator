@@ -70,12 +70,6 @@ install(TARGETS robot_base
   DESTINATION lib/${PROJECT_NAME} 
 )
 
-# Install executable scripts
-install(PROGRAMS 
-        scripts/test_control_chassis.py 
-        scripts/test_control_gimbal.py
-    DESTINATION lib/${PROJECT_NAME})
-
 #environment
 ament_environment_hooks("${CMAKE_CURRENT_SOURCE_DIR}/env-hooks/ignition.dsv.in")
 

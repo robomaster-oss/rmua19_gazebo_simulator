@@ -36,11 +36,11 @@
         <plugin filename="ignition-gazebo-joint-position-controller-system"
                 name="ignition::gazebo::systems::JointPositionController">
             <joint_name>gimbal_yaw_joint</joint_name>
-            <p_gain>0.5</p_gain>
-            <i_gain>0.01</i_gain>
+            <p_gain>1.0</p_gain>
+            <i_gain>0.05</i_gain>
             <d_gain>0.1</d_gain>
-            <i_max>1</i_max>
-            <i_min>-1</i_min>
+            <i_max>2</i_max>
+            <i_min>-2</i_min>
             <cmd_max>30</cmd_max>
             <cmd_min>-30</cmd_min>
         </plugin>
@@ -54,6 +54,14 @@
             <i_min>-10</i_min>
             <cmd_max>50</cmd_max>
             <cmd_min>-50</cmd_min>
+        </plugin>
+        <!--plugin for shooter-->
+        <plugin filename="ProjectileShooter" name="ignition::gazebo::systems::ProjectileShooter">
+            <shooter_link>speed_monitor_17mm</shooter_link>
+            <shooter_offset>0.15 0 0 0 0 0</shooter_offset>
+            <shooter_name>small_shooter</shooter_name>
+            <projectile_velocity>20</projectile_velocity>
+            <projectile_uri>model://rm_fluorescent_projectile_17mm</projectile_uri>
         </plugin>
     </model>
 </sdf>
