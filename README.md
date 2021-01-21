@@ -50,7 +50,7 @@ ros2 launch rmua19_ignition_simulator standard_robot2_test.launch.py
 **控制机器人移动**
 
 ```bash
-ros2 run rmoss_ign_base test_chassis_cmd.py --ros-args -r __ns:=/standard_robot_red1/robot_base-p v:=0.3 -p w:=0.3
+ros2 run rmoss_ign_base test_chassis_cmd.py --ros-args -r __ns:=/standard_robot_red1/robot_base -p v:=0.3 -p w:=0.3
 ```
 
 根据以下提示输入
