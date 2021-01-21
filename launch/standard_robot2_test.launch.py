@@ -44,26 +44,26 @@ def generate_launch_description():
                     '-file', robot_b2_sdf_path],
         output='screen')
     # robot base
-    chassis_controller =Node(package='rmoss_ign_robot_base', executable='chassis_simple_controller',
+    chassis_controller =Node(package='rmoss_ign_base', executable='chassis_simple_controller',
         namespace= robot_name+"/robot_base",
         parameters=[
             {'ign_chassis_cmd_topic': "/%s/cmd_vel"%(robot_name)},
         ],
         output='screen') 
-    gimbal_controller =Node(package='rmoss_ign_robot_base', executable='gimbal_simple_controller',
+    gimbal_controller =Node(package='rmoss_ign_base', executable='gimbal_simple_controller',
         namespace= robot_name+"/robot_base",
         parameters=[
             {'ign_pitch_topic': "/model/%s/joint/gimbal_pitch_joint/0/cmd_pos"%(robot_name)},
             {'ign_yaw_topic': "/model/%s/joint/gimbal_yaw_joint/0/cmd_pos"%(robot_name)},
         ],
         output='screen') 
-    gimbal_publisher =Node(package='rmoss_ign_robot_base', executable='gimbal_state_publisher',
+    gimbal_publisher =Node(package='rmoss_ign_base', executable='gimbal_state_publisher',
         namespace= robot_name+"/robot_base",
         parameters=[
             {'ign_topic': "/world/demo/model/%s/joint_state"%(robot_name)},
         ],
         output='screen') 
-    shooter_controller =Node(package='rmoss_ign_robot_base', executable='shooter_simple_controller',
+    shooter_controller =Node(package='rmoss_ign_base', executable='shooter_simple_controller',
         namespace= robot_name+"/robot_base",
         parameters=[
             {'ign_shoot_cmd_topic': "/%s/small_shooter/shoot"%(robot_name)},
