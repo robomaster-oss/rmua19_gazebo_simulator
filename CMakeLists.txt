@@ -70,6 +70,11 @@ install(TARGETS robot_base
   DESTINATION lib/${PROJECT_NAME} 
 )
 
+# Install executable scripts
+install(PROGRAMS 
+        scripts/simple_competition_1v1_referee.py 
+    DESTINATION lib/${PROJECT_NAME})
+
 #environment
 ament_environment_hooks("${CMAKE_CURRENT_SOURCE_DIR}/env-hooks/ignition.dsv.in")
 

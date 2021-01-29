@@ -37,42 +37,40 @@ def generate_launch_description():
     robot_names=["standard_robot_red1","standard_robot_blue1"]
     for robot_name in robot_names:
         chassis_controller =Node(package='rmoss_ign_base', executable='chassis_simple_controller',
-            namespace= robot_name+"/interface",
+            namespace= robot_name+"/robot_base",
             parameters=[
                 {'ign_chassis_cmd_topic': "/%s/cmd_vel"%(robot_name)},
             ],
             output='screen') 
         gimbal_controller =Node(package='rmoss_ign_base', executable='gimbal_simple_controller',
-            namespace= robot_name+"/interface",
+            namespace= robot_name+"/robot_base",
             parameters=[
                 {'ign_pitch_topic': "/model/%s/joint/gimbal_pitch_joint/0/cmd_pos"%(robot_name)},
                 {'ign_yaw_topic': "/model/%s/joint/gimbal_yaw_joint/0/cmd_pos"%(robot_name)},
             ],
             output='screen') 
         gimbal_publisher =Node(package='rmoss_ign_base', executable='gimbal_state_publisher',
-            namespace= robot_name+"/interface",
+            namespace= robot_name+"/robot_base",
             parameters=[
                 {'ign_topic': "/world/demo/model/%s/joint_state"%(robot_name)},
             ],
             output='screen') 
         shooter_controller =Node(package='rmoss_ign_base', executable='shooter_simple_controller',
-            namespace= robot_name+"/interface",
+            namespace= robot_name+"/robot_base",
             parameters=[
                 {'ign_shoot_cmd_topic': "/%s/small_shooter/shoot"%(robot_name)},
             ],
             output='screen') 
         robot_ign_bridge = Node(package='ros_ign_bridge',executable='parameter_bridge',
-            namespace= robot_name+"/interface",
+            namespace= robot_name,
             arguments=["/world/demo/model/%s/link/front_industrial_camera/sensor/front_industrial_camera/image@sensor_msgs/msg/Image[ignition.msgs.Image"%(robot_name),
-                    "/world/demo/model/%s/link/chassis/sensor/chassis_imu/imu@sensor_msgs/msg/Imu[ignition.msgs.IMU"%(robot_name),
                     "/world/demo/model/%s/link/front_rplidar_a2/sensor/front_rplidar_a2/scan@sensor_msgs/msg/LaserScan[ignition.msgs.LaserScan"%(robot_name),
                     "/%s/odometry@nav_msgs/msg/Odometry[ignition.msgs.Odometry"%(robot_name)
             ],
             remappings=[
                 ("/world/demo/model/%s/link/front_industrial_camera/sensor/front_industrial_camera/image"%(robot_name),"front_camera/image"),
-                ("/world/demo/model/%s/link/chassis/sensor/chassis_imu/imu"%(robot_name),"chassis_imu"),
-                ("/world/demo/model/%s/link/front_rplidar_a2/sensor/front_rplidar_a2/scan"%(robot_name),"laser_scan"),
-                ("/%s/odometry"%(robot_name),"odom"),
+                ("/world/demo/model/%s/link/front_rplidar_a2/sensor/front_rplidar_a2/scan"%(robot_name),"rplidar_a2/scan"),
+                ("/%s/odometry"%(robot_name),"robot_base/odom"),
             ],
             output='screen'
         )

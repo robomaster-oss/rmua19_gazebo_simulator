@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import sys
 import threading 
 import numpy as np
 import cv2
@@ -47,21 +48,10 @@ def img_callback(msg : Image):
     frame = cv2.imencode(".jpg",img)[1].tobytes()
     event.set()
 
-rclpy.init()
-node = rclpy.create_node('player_web')
-robot_name="standard_robot_red1"
-chassis_cmd_pub = node.create_publisher(ChassisCmd,'/%s/robot_base/chassis_cmd'%(robot_name) , 10)
-gimbal_cmd_pub = node.create_publisher(GimbalCmd, '/%s/robot_base/gimbal_cmd'%(robot_name) , 10)
-shoot_cmd_pub = node.create_publisher(ShootCmd, '/%s/robot_base/shoot_cmd'%(robot_name), 10)
-img_sub = node.create_subscription(Image, '/%s/front_camera/image'%(robot_name),img_callback,rclpy.qos.qos_profile_sensor_data)
-
-##spin for image subscription
-def test_thread(node):
+## Thread for spin (image subscription)
+def spin_thread(node):
     rclpy.spin(node)
     node.destroy_node()
-
-img_thread = threading.Thread(target=test_thread, args=(node,))
-img_thread.start()
 
 ################################
 # Flask
@@ -111,7 +101,7 @@ def control_message(message):
     w=1.0*w
     publishChassisCmdMsg(chassis_cmd_pub,x,y,w)
     #gimbal
-    yaw=float(gp_data['RS_ax0'])
+    yaw=-float(gp_data['RS_ax0'])
     pitch=float(gp_data['RS_ax1'])
     publishGimbalCmdMsg(gimbal_cmd_pub,pitch,yaw)
     #shoot
@@ -119,8 +109,23 @@ def control_message(message):
         publishShootCmdMsg(shoot_cmd_pub,1,20)
     #print("msg",x,y,w,pitch,yaw,gp_data['RB'])
 
-
 if __name__ == "__main__":
-    # socketio.run(app)
-    socketio.run(app,debug = True, host="0.0.0.0", port = 5000)
+    #ROS2 Task
+    rclpy.init()
+    node = rclpy.create_node('player_web')
+    #standard_robot_red1,standard_robot_blue1
+    robot_name="standard_robot_red1"
+    port=5000
+    if len(sys.argv) == 3:
+        robot_name = str(sys.argv[1])
+        port = int(sys.argv[2])
+    print("Robot name:",robot_name, "Port:",port)
+    chassis_cmd_pub = node.create_publisher(ChassisCmd,'/%s/robot_base/chassis_cmd'%(robot_name) , 10)
+    gimbal_cmd_pub = node.create_publisher(GimbalCmd, '/%s/robot_base/gimbal_cmd'%(robot_name) , 10)
+    shoot_cmd_pub = node.create_publisher(ShootCmd, '/%s/robot_base/shoot_cmd'%(robot_name), 10)
+    img_sub = node.create_subscription(Image, '/%s/front_camera/image'%(robot_name),img_callback,rclpy.qos.qos_profile_sensor_data)
+    img_thread = threading.Thread(target=spin_thread, args=(node,))
+    img_thread.start()
+    #Flask Task
+    socketio.run(app,debug = True, host="0.0.0.0", port = port)
    
