@@ -67,7 +67,7 @@ ros2 run rmoss_ign_base test_gimbal_cmd.py --ros-args -r __ns:=/standard_robot_r
 
 * 云台采用位置PID控制
 
-**机器人射击 **
+**机器人射击**
 
 ```bash
 ros2 run rmoss_ign_base test_shoot_cmd.py --ros-args -r __ns:=/standard_robot_red1/robot_base
@@ -79,13 +79,15 @@ ros2 run rmoss_ign_base test_shoot_cmd.py --ros-args -r __ns:=/standard_robot_re
 
 ### 3. 简易竞赛模式1v1
 
-* 目前测试中，Shoot功能存在BUG以及可能存在其他未知BUG.
+* 目前测试中，射击功能存在已知BUG，以及可能存在其他未知BUG，请谨慎使用。
 
 **运行Ignition Gazebo仿真器**
 
 ```bash
 ros2 launch rmua19_ignition_simulator simple_competition_1v1.launch.py 
 ```
+
+![](doc/imgs/simple_competition_1v1.png)
 
 **运行裁判系统**
 
@@ -94,8 +96,24 @@ ros2 run rmua19_ignition_simulator simple_competition_1v1_referee.py
 ```
 
 * 弹丸伤害为10，每个机器人HP为500，直到HP为0时，裁判系统输出胜利者，程序退出。（可重新运行开始）
+* 通过解析并处理攻击信息`/referee_system/attack_info` （包括射击者信息以及击中目标信息）实现裁判功能。
 
-**运行玩家操作web端**（仅支持手柄操作，如XBOX360）
+**控制机器人-ROS2接口**
+
+例如，对于standard_robot_red1，有如下ROS2 topic接口使用，可用于机器人控制和感知。(对于standard_robot_blue1同理)
+
+```bash
+/standard_robot_red1/robot_base/chassis_cmd
+/standard_robot_red1/robot_base/gimbal_state
+/standard_robot_red1/robot_base/odom
+/standard_robot_red1/robot_base/shoot_cmd
+/standard_robot_red1/front_camera/image
+/standard_robot_red1/rplidar_a2/scan
+```
+
+**控制机器人-玩家web端**
+
+目前仅支持手柄操作，如XBOX360
 
 进入`scripts/player_web`目录，运行web服务器
 
