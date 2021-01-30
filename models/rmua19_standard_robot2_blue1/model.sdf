@@ -299,18 +299,19 @@
 					<izz>0.0012500000000000002</izz>
 				</inertia>
 			</inertial>
-			<visual name="gimbal_yaw_visual">
+			<visual name="visual">
 				<geometry>
 					<mesh>
 						<uri>model://rmua19_standard_robot/meshes/gimbal_yaw.dae</uri>
 					</mesh>
 				</geometry>
 			</visual>
-			<collision name="gimbal_yaw_collision">
+			<collision name="collision">
+				<pose>0 0 0.0885 0 0 0</pose>
 				<geometry>
-					<mesh>
-						<uri>model://rmua19_standard_robot/meshes/gimbal_yaw.dae</uri>
-					</mesh>
+					<box>
+						<size>0.065 0.117 0.177</size>
+					</box>
 				</geometry>
 			</collision>
 		</link>
@@ -341,18 +342,27 @@
 					<izz>0.0029416666666666666</izz>
 				</inertia>
 			</inertial>
-			<visual name="gimbal_pitch_visual">
+			<visual name="visual">
 				<geometry>
 					<mesh>
 						<uri>model://rmua19_standard_robot/meshes/gimbal_pitch.dae</uri>
 					</mesh>
 				</geometry>
 			</visual>
-			<collision name="gimbal_pitch_collision">
+			<collision name="collision_main">
+				<pose>0.015 0 0 0 0 0</pose>
 				<geometry>
-					<mesh>
-						<uri>model://rmua19_standard_robot/meshes/gimbal_pitch.dae</uri>
-					</mesh>
+					<box>
+						<size>0.1 0.0915 0.08</size>
+					</box>
+				</geometry>
+			</collision>
+			<collision name="collision_box">
+				<pose>-0.011 0 0.043 0 0 0</pose>
+				<geometry>
+					<box>
+						<size>0.14801 0.07 0.065</size>
+					</box>
 				</geometry>
 			</collision>
 		</link>
@@ -385,10 +395,11 @@
 				</geometry>
 			</visual>
 			<collision name="collision">
+				<pose>0.015 0 0 0 0 0</pose>
 				<geometry>
-					<mesh>
-						<uri>model://rm21_armor_module/meshes/armor_support_frame.dae</uri>
-					</mesh>
+					<box>
+						<size>0.03 0.11 0.08</size>
+					</box>
 				</geometry>
 			</collision>
 		</link>
@@ -406,9 +417,9 @@
 					<ixx>0.0003065083333333333</ixx>
 					<ixy>0</ixy>
 					<ixz>0</ixz>
-					<iyy>0.00014203333333333333</iyy>
+					<iyy>0.0001421774166666667</iyy>
 					<iyz>0</iyz>
-					<izz>0.00016687499999999995</izz>
+					<izz>0.0001670190833333333</izz>
 				</inertia>
 			</inertial>
 			<visual name="visual">
@@ -458,10 +469,11 @@
 				</material>
 			</visual>
 			<collision name="collision">
+				<pose>0 0 0.065 0 0 0</pose>
 				<geometry>
-					<mesh>
-						<uri>model://rm21_armor_module/meshes/small_armor.dae</uri>
-					</mesh>
+					<box>
+						<size>0.0127 0.141 0.13</size>
+					</box>
 				</geometry>
 			</collision>
 			<collision name="target_collision">
@@ -500,10 +512,11 @@
 				</geometry>
 			</visual>
 			<collision name="collision">
+				<pose>0.015 0 0 0 0 0</pose>
 				<geometry>
-					<mesh>
-						<uri>model://rm21_armor_module/meshes/armor_support_frame.dae</uri>
-					</mesh>
+					<box>
+						<size>0.03 0.11 0.08</size>
+					</box>
 				</geometry>
 			</collision>
 		</link>
@@ -521,9 +534,9 @@
 					<ixx>0.0003065083333333333</ixx>
 					<ixy>0</ixy>
 					<ixz>0</ixz>
-					<iyy>0.00014203333333333333</iyy>
+					<iyy>0.0001421774166666667</iyy>
 					<iyz>0</iyz>
-					<izz>0.00016687499999999995</izz>
+					<izz>0.0001670190833333333</izz>
 				</inertia>
 			</inertial>
 			<visual name="visual">
@@ -573,10 +586,11 @@
 				</material>
 			</visual>
 			<collision name="collision">
+				<pose>0 0 0.065 0 0 0</pose>
 				<geometry>
-					<mesh>
-						<uri>model://rm21_armor_module/meshes/small_armor.dae</uri>
-					</mesh>
+					<box>
+						<size>0.0127 0.141 0.13</size>
+					</box>
 				</geometry>
 			</collision>
 			<collision name="target_collision">
@@ -615,10 +629,11 @@
 				</geometry>
 			</visual>
 			<collision name="collision">
+				<pose>0.015 0 0 0 0 0</pose>
 				<geometry>
-					<mesh>
-						<uri>model://rm21_armor_module/meshes/armor_support_frame.dae</uri>
-					</mesh>
+					<box>
+						<size>0.03 0.11 0.08</size>
+					</box>
 				</geometry>
 			</collision>
 		</link>
@@ -636,9 +651,9 @@
 					<ixx>0.0003065083333333333</ixx>
 					<ixy>0</ixy>
 					<ixz>0</ixz>
-					<iyy>0.00014203333333333333</iyy>
+					<iyy>0.0001421774166666667</iyy>
 					<iyz>0</iyz>
-					<izz>0.00016687499999999995</izz>
+					<izz>0.0001670190833333333</izz>
 				</inertia>
 			</inertial>
 			<visual name="visual">
@@ -688,10 +703,11 @@
 				</material>
 			</visual>
 			<collision name="collision">
+				<pose>0 0 0.065 0 0 0</pose>
 				<geometry>
-					<mesh>
-						<uri>model://rm21_armor_module/meshes/small_armor.dae</uri>
-					</mesh>
+					<box>
+						<size>0.0127 0.141 0.13</size>
+					</box>
 				</geometry>
 			</collision>
 			<collision name="target_collision">
@@ -730,10 +746,11 @@
 				</geometry>
 			</visual>
 			<collision name="collision">
+				<pose>0.015 0 0 0 0 0</pose>
 				<geometry>
-					<mesh>
-						<uri>model://rm21_armor_module/meshes/armor_support_frame.dae</uri>
-					</mesh>
+					<box>
+						<size>0.03 0.11 0.08</size>
+					</box>
 				</geometry>
 			</collision>
 		</link>
@@ -751,9 +768,9 @@
 					<ixx>0.0003065083333333333</ixx>
 					<ixy>0</ixy>
 					<ixz>0</ixz>
-					<iyy>0.00014203333333333333</iyy>
+					<iyy>0.0001421774166666667</iyy>
 					<iyz>0</iyz>
-					<izz>0.00016687499999999995</izz>
+					<izz>0.0001670190833333333</izz>
 				</inertia>
 			</inertial>
 			<visual name="visual">
@@ -803,10 +820,11 @@
 				</material>
 			</visual>
 			<collision name="collision">
+				<pose>0 0 0.065 0 0 0</pose>
 				<geometry>
-					<mesh>
-						<uri>model://rm21_armor_module/meshes/small_armor.dae</uri>
-					</mesh>
+					<box>
+						<size>0.0127 0.141 0.13</size>
+					</box>
 				</geometry>
 			</collision>
 			<collision name="target_collision">
