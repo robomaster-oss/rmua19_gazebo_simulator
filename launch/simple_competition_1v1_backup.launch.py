@@ -36,11 +36,29 @@ def generate_launch_description():
     # robot base for each robot
     robot_names=["standard_robot_red1","standard_robot_blue1"]
     for robot_name in robot_names:
-        robot_base =Node(package='rmua19_ignition_simulator', executable='rmua19_robot_base',
+        chassis_controller =Node(package='rmoss_ign_base', executable='chassis_simple_controller',
             namespace= robot_name+"/robot_base",
             parameters=[
-                {"world_name": "default"},
-                {"robot_name": robot_name},
+                {'ign_chassis_cmd_topic': "/%s/cmd_vel"%(robot_name)},
+            ],
+            output='screen') 
+        gimbal_controller =Node(package='rmoss_ign_base', executable='gimbal_simple_controller',
+            namespace= robot_name+"/robot_base",
+            parameters=[
+                {'ign_pitch_topic': "/model/%s/joint/gimbal_pitch_joint/0/cmd_pos"%(robot_name)},
+                {'ign_yaw_topic': "/model/%s/joint/gimbal_yaw_joint/0/cmd_pos"%(robot_name)},
+            ],
+            output='screen') 
+        gimbal_publisher =Node(package='rmoss_ign_base', executable='gimbal_state_publisher',
+            namespace= robot_name+"/robot_base",
+            parameters=[
+                {'ign_topic': "/world/default/model/%s/joint_state"%(robot_name)},
+            ],
+            output='screen') 
+        shooter_controller =Node(package='rmoss_ign_base', executable='shooter_simple_controller',
+            namespace= robot_name+"/robot_base",
+            parameters=[
+                {'ign_shoot_cmd_topic': "/%s/small_shooter/shoot"%(robot_name)},
             ],
             output='screen') 
         robot_ign_bridge = Node(package='ros_ign_bridge',executable='parameter_bridge',
@@ -56,7 +74,10 @@ def generate_launch_description():
             ],
             output='screen'
         )
-        ld.add_action(robot_base)
+        ld.add_action(chassis_controller)
+        ld.add_action(gimbal_controller)
+        ld.add_action(gimbal_publisher)
+        ld.add_action(shooter_controller)
         ld.add_action(robot_ign_bridge)
     #referee system
     referee_ign_bridge = Node(package='ros_ign_bridge',executable='parameter_bridge',

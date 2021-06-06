@@ -15,6 +15,7 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(rmoss_interfaces REQUIRED)
+find_package(rmoss_ign_base REQUIRED)
 
 # ignition package
 find_package(ignition-transport9 REQUIRED)
@@ -22,51 +23,28 @@ set(IGN_TRANSPORT_VER 9)
 find_package(ignition-msgs6 REQUIRED)
 set(IGN_MSGS_VER 6)
 
-# include
-include_directories(include)
 
-# generate rmua19_ignition_simulator lib
-AUX_SOURCE_DIRECTORY(${PROJECT_SOURCE_DIR}/src DIR_SRCS)
-add_library(${PROJECT_NAME} ${DIR_SRCS})
-
-ament_target_dependencies(${PROJECT_NAME}
+# rmua19_robot_base
+add_executable(rmua19_robot_base nodes/rmua19_robot_base_node.cpp)
+# target_link_libraries(robot_base
+#     ignition-msgs${IGN_MSGS_VER}::core
+#     ignition-transport${IGN_TRANSPORT_VER}::core
+# )
+ament_target_dependencies(rmua19_robot_base
     rclcpp 
     std_msgs
-    geometry_msgs
     rmoss_interfaces
-)
-target_link_libraries(${PROJECT_NAME}
-    ignition-msgs${IGN_MSGS_VER}::core
-    ignition-transport${IGN_TRANSPORT_VER}::core
+    rmoss_ign_base
 )
 
-#robot_base_node
-add_executable(robot_base nodes/robot_base_node.cpp)
-target_link_libraries(robot_base ${PROJECT_NAME})
-
-
-#install
+# Install
 install( DIRECTORY
     ign launch models rviz worlds
   DESTINATION share/${PROJECT_NAME}
 )
 
-# Install include directories
-install(DIRECTORY include/
-  DESTINATION include
-)
-
-# Install libraries
-install(TARGETS ${PROJECT_NAME}
-    EXPORT ${PROJECT_NAME}
-    LIBRARY DESTINATION lib
-    ARCHIVE DESTINATION lib
-    RUNTIME DESTINATION bin
-    INCLUDES DESTINATION include
-)
-
 # Install executables
-install(TARGETS robot_base
+install(TARGETS rmua19_robot_base
   DESTINATION lib/${PROJECT_NAME} 
 )
 

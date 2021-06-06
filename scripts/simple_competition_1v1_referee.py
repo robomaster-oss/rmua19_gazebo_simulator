@@ -11,7 +11,7 @@ is_debug = False
 
 def attack_info_callback(msg : String):
     #parse msg
-    info=msg.data.split(">")
+    info=msg.data.split(",")
     if len(info)<2:
         return
     #shooter info
