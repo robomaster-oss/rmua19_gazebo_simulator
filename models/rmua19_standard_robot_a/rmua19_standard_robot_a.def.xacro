@@ -1,15 +1,11 @@
 <?xml version="1.0"?>
 <sdf version="1.7">
     <!--include defination-->
-    <xacro_include_definition uri="model://rplidar_a2/model.sdf.xacro" />
-    <xacro_include_definition uri="model://industrial_camera/model.sdf.xacro" />
-    <xacro_include_definition uri="model://rmua19_standard_robot/rmua19_standard_robot.def.xacro" />
-    <!--property defination-->
-    <xacro_define_property name="global_light_bar_rgb" value="1 0 0" />
-    <xacro_define_property name="global_armor_sticker_map_uri" value="model://rm21_armor_module/materials/textures/armor_sticker_num1.png" />
-    <!--rmua19_standard_robot model-->
-    <model name="rmua19_standard_robot">
-        <pose>0 0 0.15 0 0 0</pose>
+    <xacro_include_definition uri="model://rplidar_a2/model.sdf.xmacro" />
+    <xacro_include_definition uri="model://industrial_camera/model.sdf.xmacro" />
+    <xacro_include_definition uri="model://rmua19_standard_robot/rmua19_standard_robot_b.def.xmacro" />
+    <!--rmua19_standard_robot B model-->
+    <xacro_define_macro name="rmua19_standard_robot_b" params="light_bar_rgb armor_sticker_map_uri">
         <xacro_macro name="rmua19_standard_robot" light_bar_rgb="${global_light_bar_rgb}" armor_sticker_map_uri="${global_armor_sticker_map_uri}"/>
         <!--rplidar a2-->
         <xacro_macro name="rplidar_a2" prefix="front_" parent="chassis" pose="0.155 0 0.1 0 0 0"
@@ -55,5 +51,5 @@
             <cmd_max>50</cmd_max>
             <cmd_min>-50</cmd_min>
         </plugin>
-    </model>
+    </xacro_macro>
 </sdf>
