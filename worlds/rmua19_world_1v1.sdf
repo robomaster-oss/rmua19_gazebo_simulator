@@ -36,7 +36,7 @@
 		<include>
 			<uri>model://rmua19_battlefield</uri>
 		</include>
-		<!--robot-->
+		<!--robot:red1-->
 		<model name="standard_robot_red1">
 			<pose>-3.5 -2 0.08 0 0 0</pose>
 			<!--chassis-->
@@ -93,8 +93,7 @@
 				</collision>
 				<sensor name="chassis_imu" type="imu">
 					<always_on>1</always_on>
-					<update_rate>30</update_rate>
-					<visualize>0</visualize>
+					<update_rate>200</update_rate>
 				</sensor>
 			</link>
 			<!--front_left wheel link and joint-->
@@ -398,6 +397,10 @@
 						</box>
 					</geometry>
 				</collision>
+				<sensor name="gimbal_imu" type="imu">
+					<always_on>1</always_on>
+					<update_rate>200</update_rate>
+				</sensor>
 			</link>
 			<!--for referee system -->
 			<!--front armors -->
@@ -1082,8 +1085,8 @@
 			<!--plugins-->
 			<!--plugin for joint state sensor-->
 			<plugin filename="ignition-gazebo-joint-state-publisher-system" name="ignition::gazebo::systems::JointStatePublisher">
-				<joint_name>gimbal_yaw_joint</joint_name>
 				<joint_name>gimbal_pitch_joint</joint_name>
+				<joint_name>gimbal_yaw_joint</joint_name>
 			</plugin>
 			<!--plugin for chassis control-->
 			<plugin filename="MecanumDrive2" name="ignition::gazebo::systems::MecanumDrive2">
@@ -1094,25 +1097,17 @@
 				<rear_right_joint>rear_right_wheel_joint</rear_right_joint>
 			</plugin>
 			<!--plugin for gimbal control-->
-			<plugin filename="ignition-gazebo-joint-position-controller-system" name="ignition::gazebo::systems::JointPositionController">
+			<plugin filename="ignition-gazebo-joint-controller-system" name="ignition::gazebo::systems::JointController">
 				<joint_name>gimbal_yaw_joint</joint_name>
-				<p_gain>1.0</p_gain>
-				<i_gain>0.05</i_gain>
-				<d_gain>0.1</d_gain>
-				<i_max>2</i_max>
-				<i_min>-2</i_min>
-				<cmd_max>30</cmd_max>
-				<cmd_min>-30</cmd_min>
+				<use_force_commands>false</use_force_commands>
+				<p_gain>0.2</p_gain>
+				<i_gain>0.01</i_gain>
 			</plugin>
-			<plugin filename="ignition-gazebo-joint-position-controller-system" name="ignition::gazebo::systems::JointPositionController">
+			<plugin filename="ignition-gazebo-joint-controller-system" name="ignition::gazebo::systems::JointController">
 				<joint_name>gimbal_pitch_joint</joint_name>
-				<p_gain>2.0</p_gain>
-				<i_gain>0.1</i_gain>
-				<d_gain>0.2</d_gain>
-				<i_max>10</i_max>
-				<i_min>-10</i_min>
-				<cmd_max>50</cmd_max>
-				<cmd_min>-50</cmd_min>
+				<use_force_commands>false</use_force_commands>
+				<p_gain>1</p_gain>
+				<i_gain>0.01</i_gain>
 			</plugin>
 			<!--plugin for shooter-->
 			<plugin filename="ProjectileShooter" name="ignition::gazebo::systems::ProjectileShooter">
@@ -1123,6 +1118,7 @@
 				<projectile_uri>model://rm_projectile_17mm</projectile_uri>
 			</plugin>
 		</model>
+		<!--robot:blue1-->
 		<model name="standard_robot_blue1">
 			<pose>3.5 2 0.08 0 0 3.14159</pose>
 			<!--chassis-->
@@ -1179,8 +1175,7 @@
 				</collision>
 				<sensor name="chassis_imu" type="imu">
 					<always_on>1</always_on>
-					<update_rate>30</update_rate>
-					<visualize>0</visualize>
+					<update_rate>200</update_rate>
 				</sensor>
 			</link>
 			<!--front_left wheel link and joint-->
@@ -1484,6 +1479,10 @@
 						</box>
 					</geometry>
 				</collision>
+				<sensor name="gimbal_imu" type="imu">
+					<always_on>1</always_on>
+					<update_rate>200</update_rate>
+				</sensor>
 			</link>
 			<!--for referee system -->
 			<!--front armors -->
@@ -2168,8 +2167,8 @@
 			<!--plugins-->
 			<!--plugin for joint state sensor-->
 			<plugin filename="ignition-gazebo-joint-state-publisher-system" name="ignition::gazebo::systems::JointStatePublisher">
-				<joint_name>gimbal_yaw_joint</joint_name>
 				<joint_name>gimbal_pitch_joint</joint_name>
+				<joint_name>gimbal_yaw_joint</joint_name>
 			</plugin>
 			<!--plugin for chassis control-->
 			<plugin filename="MecanumDrive2" name="ignition::gazebo::systems::MecanumDrive2">
@@ -2180,25 +2179,17 @@
 				<rear_right_joint>rear_right_wheel_joint</rear_right_joint>
 			</plugin>
 			<!--plugin for gimbal control-->
-			<plugin filename="ignition-gazebo-joint-position-controller-system" name="ignition::gazebo::systems::JointPositionController">
+			<plugin filename="ignition-gazebo-joint-controller-system" name="ignition::gazebo::systems::JointController">
 				<joint_name>gimbal_yaw_joint</joint_name>
-				<p_gain>1.0</p_gain>
-				<i_gain>0.05</i_gain>
-				<d_gain>0.1</d_gain>
-				<i_max>2</i_max>
-				<i_min>-2</i_min>
-				<cmd_max>30</cmd_max>
-				<cmd_min>-30</cmd_min>
+				<use_force_commands>false</use_force_commands>
+				<p_gain>0.2</p_gain>
+				<i_gain>0.01</i_gain>
 			</plugin>
-			<plugin filename="ignition-gazebo-joint-position-controller-system" name="ignition::gazebo::systems::JointPositionController">
+			<plugin filename="ignition-gazebo-joint-controller-system" name="ignition::gazebo::systems::JointController">
 				<joint_name>gimbal_pitch_joint</joint_name>
-				<p_gain>2.0</p_gain>
-				<i_gain>0.1</i_gain>
-				<d_gain>0.2</d_gain>
-				<i_max>10</i_max>
-				<i_min>-10</i_min>
-				<cmd_max>50</cmd_max>
-				<cmd_min>-50</cmd_min>
+				<use_force_commands>false</use_force_commands>
+				<p_gain>1</p_gain>
+				<i_gain>0.01</i_gain>
 			</plugin>
 			<!--plugin for shooter-->
 			<plugin filename="ProjectileShooter" name="ignition::gazebo::systems::ProjectileShooter">

@@ -37,15 +37,23 @@ ament_target_dependencies(rmua19_robot_base
     rmoss_ign_base
 )
 
+add_executable(rmua19_robot_base2 nodes/rmua19_robot_base2_node.cpp)
+ament_target_dependencies(rmua19_robot_base2
+    rclcpp 
+    std_msgs
+    rmoss_interfaces
+    rmoss_ign_base
+)
+
 # Install
 install( DIRECTORY
-    ign launch models rviz worlds
+    ign launch models rviz worlds 
   DESTINATION share/${PROJECT_NAME}
 )
 
 # Install executables
-install(TARGETS rmua19_robot_base
-  DESTINATION lib/${PROJECT_NAME} 
+install(TARGETS rmua19_robot_base  rmua19_robot_base2
+  DESTINATION lib/${PROJECT_NAME}  
 )
 
 # Install executable scripts

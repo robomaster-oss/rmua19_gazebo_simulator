@@ -16,26 +16,28 @@
 </head>
 
 <body>
-    <h1>Video Streaming Demonstration</h1>
+    <h1>Video Streaming</h1>
     <img src="{{ url_for('video_feed') }}">
+    <h1>Gamepad Info</h1>
+    <div id="gamepadPrompt">To begin using your gamepad, connect it and press any button!</div>
+    <button type="button" id="btn_control_start"> start </button>
+    <button type="button" id="btn_control_stop"> stop </button>
+    <div id="control_status">control status:stop!</div>
     <h1>Contoller Info</h1>
-    <div id="gamepadPrompt"></div>
-    <br />
     <div id="gamepadDisplay"></div>
     <script>
-        //static pubic ip and port number for rasberry pi here
-        var socket_status = io.connect(window.location.protocol + "//" + location.host + "/status")
+        //var socket_status = io.connect(window.location.protocol + "//" + location.host + "/status")
         var socket_control = io.connect(window.location.protocol + "//" + location.host + "/control");
         console.log("info:" + window.location.protocol + "//" + location.host + "/control");
         var hasGP = false;
-        var repGP;
+        var repGP
         function canGame() {
             return "getGamepads" in navigator;
         }
         function reportOnGamepad() {
             var gp = navigator.getGamepads()[0];
             button_names = ['A', 'B', 'X', 'Y', 'LB', 'RB', 'LT', 'RT', 'BACK', 'START', 'LS', 'RS', 'UP', 'DOWN', 'LEFT', 'RIGHT']
-            console.log('buttons', gp.buttons.length, "axes", gp.axes.length);
+            //console.log('buttons', gp.buttons.length, "axes", gp.axes.length);
             if (gp.buttons.length < 16 || gp.axes.length < 4) {
                 return
             }
@@ -49,7 +51,7 @@
             gp_data["RS_ax0"] = gp.axes[2]
             gp_data["RS_ax1"] = gp.axes[3]
             socket_control.emit('control', { "gp_data": gp_data })
-            console.log('C', gp_data);
+            //console.log('C', gp_data);
             //render html
             var html = "";
             html += "id: " + gp.id + "<br/>";
@@ -63,34 +65,38 @@
             $("#gamepadDisplay").html(html);
         }
 
-        $(document).ready(function () {
-            if (canGame()) {
-                var prompt = "To begin using your gamepad, connect it and press any button!";
-                $("#gamepadPrompt").text(prompt);
-                $(window).on("gamepadconnected", function () {
-                    hasGP = true;
-                    $("#gamepadPrompt").html("Gamepad connected!");
-                    console.log("connection event");
+        window.addEventListener("gamepadconnected", function(e) {
+            hasGP =true;
+            var prompt = "Gamepad: " + e.gamepad.id + " connected!";
+            $("#gamepadPrompt").text(prompt);
+            console.log("Gamepad connected, gamepad is: "+e.gamepad.id);
+     
+        });
+        window.addEventListener("gamepaddisconnected", function(e) {
+            hasGP =false;
+            var prompt = "To begin using your gamepad, connect it and press any button!";
+            $("#gamepadPrompt").text(prompt);
+            $("#gamepadDisplay").html("");
+            console.log("You can't play without a gamepad!");
+        });
+        $('#btn_control_start').click(function(){
+            if (hasGP) {
+                if(repGP == null){
                     repGP = window.setInterval(reportOnGamepad, 100);
-                });
-                $(window).on("gamepaddisconnected", function () {
-                    console.log("disconnection event");
-                    $("#gamepadPrompt").text(prompt);
-                    window.clearInterval(repGP);
-                    $("#gamepadDisplay").html("");
-                });
-                //setup an interval for Chrome
-                var checkGP = window.setInterval(function () {
-                    console.log('checkGP');
-                    if (navigator.getGamepads()[0]) {
-                        if (!hasGP) $(window).trigger("gamepadconnected");
-                        window.clearInterval(checkGP);
-                    }
-                }, 1000);
+                    $("#control_status").text("control status:start!");
+                }  
             }
         });
+        $('#btn_control_stop').click(function(){
+            if (hasGP) {
+                if(repGP != null){
+                    window.clearInterval(repGP);
+                    repGP = null
+                    $("#control_status").text("control status:stop!");
+                }  
+            }
+        });   
     </script>
-
 </body>
 
 </html>

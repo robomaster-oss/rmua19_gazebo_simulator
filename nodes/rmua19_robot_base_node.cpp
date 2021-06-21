@@ -9,10 +9,10 @@
  *
  ******************************************************************************/
 #include <rclcpp/rclcpp.hpp>
-#include "rmoss_ign_base/chassis_simple_controller.hpp"
-#include "rmoss_ign_base/gimbal_simple_controller.hpp"
+#include "rmoss_ign_base/simple_chassis_controller.hpp"
+#include "rmoss_ign_base/simple_gimbal_controller.hpp"
+#include "rmoss_ign_base/simple_shooter_controller.hpp"
 #include "rmoss_ign_base/gimbal_state_publisher.hpp"
-#include "rmoss_ign_base/shooter_simple_controller.hpp"
 
 
 int main(int argc, char* argv[])
@@ -27,18 +27,22 @@ int main(int argc, char* argv[])
     world_name = ros_node->get_parameter("world_name").as_string();
     ros_node->declare_parameter("robot_name");
     robot_name = ros_node->get_parameter("robot_name").as_string();
+    // topic string 
+    std::string ign_chassis_cmd_topic = "/"+robot_name+"/cmd_vel";
+    std::string ign_gimbal_pitch_cmd_topic = "/model/"+robot_name+"/joint/gimbal_pitch_joint/0/cmd_pos";
+    std::string ign_gimbal_yaw_cmd_topic = "/model/"+robot_name+"/joint/gimbal_yaw_joint/0/cmd_pos";
+    std::string ign_joint_state_topic = "/world/"+world_name+"/model/"+robot_name+"/joint_state";
+    std::string ign_shooter_cmd_topic = "/"+robot_name+"/small_shooter/shoot";
     // create controller 
-    auto chassis_controller = std::make_shared<rmoss_ign_base::ChassisSimpleController>(
-        ros_node,"chassis_cmd", "/"+robot_name+"/cmd_vel");
-    auto gimbal_controller = std::make_shared<rmoss_ign_base::GimbalSimpleController>(
-        ros_node,"gimbal_cmd", 
-        "/model/"+robot_name+"/joint/gimbal_pitch_joint/0/cmd_pos", 
-        "/model/"+robot_name+"/joint/gimbal_yaw_joint/0/cmd_pos");
-    auto shooter_controller = std::make_shared<rmoss_ign_base::ShooterSimpleController>(
-        ros_node,"shoot_cmd","/"+robot_name+"/small_shooter/shoot");
+    auto chassis_controller = std::make_shared<rmoss_ign_base::SimpleChassisController>(
+        ros_node,"chassis_cmd", ign_chassis_cmd_topic);
+    auto gimbal_controller = std::make_shared<rmoss_ign_base::SimpleGimbalController>(
+        ros_node,"gimbal_cmd", ign_gimbal_pitch_cmd_topic, ign_gimbal_yaw_cmd_topic);
+    auto shooter_controller = std::make_shared<rmoss_ign_base::SimpleShooterController>(
+        ros_node,"shoot_cmd",ign_shooter_cmd_topic);
     // create gimbal publisher
     auto gimbal_publisher = std::make_shared<rmoss_ign_base::GimbalStatePublisher>(
-        ros_node,"gimbal_state", "/world/"+world_name+"/model/"+robot_name+"/joint_state",
+        ros_node,"gimbal_state", ign_joint_state_topic,
         0, 1 , 50);
     // run node until it's exited
     rclcpp::spin(ros_node);
