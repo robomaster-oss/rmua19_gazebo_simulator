@@ -24,14 +24,12 @@ rmua19_ignition_simulator是基于Ignition Gazebo的仿真环境，为RoboMaster
 
 **环境配置**
 
-ROS2和Ignition版本
-
-* ROS2：foxy
-* Ignition：Dome
+* ROS2版本要求: `Galatic` (目前处于开发期，基于ROS2最新版本)
+* Ignition仿真器版本要求: ` Edifice` (目前处于开发期，基于Ignition最新版本)
 
 ```bash
 # install ros-ign package
-sudo apt-get install ros-foxy-ros-ign
+sudo apt-get install ros-galactic-ros-ign
 # cd src directory of ros2 workspace 
 git clone https://github.com/robomaster-oss/rmoss_interfaces
 git clone https://github.com/robomaster-oss/rmoss_ign
@@ -135,5 +133,5 @@ python3 app.py standard_robot_red1 5000
 
 Maintainer: Zhenpeng Ge, zhenpeng.ge@qq.com
 
-rmua19_ignition_simulator is provided under MIT License.
+rmua19_ignition_simulator is provided under Apache License 2.0.
 

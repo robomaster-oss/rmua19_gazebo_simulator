@@ -17,28 +17,10 @@ find_package(geometry_msgs REQUIRED)
 find_package(rmoss_interfaces REQUIRED)
 find_package(rmoss_ign_base REQUIRED)
 
-# ignition package
-find_package(ignition-transport9 REQUIRED)
-set(IGN_TRANSPORT_VER 9)
-find_package(ignition-msgs6 REQUIRED)
-set(IGN_MSGS_VER 6)
-
-
 # rmua19_robot_base
 add_executable(rmua19_robot_base nodes/rmua19_robot_base_node.cpp)
-# target_link_libraries(robot_base
-#     ignition-msgs${IGN_MSGS_VER}::core
-#     ignition-transport${IGN_TRANSPORT_VER}::core
-# )
-ament_target_dependencies(rmua19_robot_base
-    rclcpp 
-    std_msgs
-    rmoss_interfaces
-    rmoss_ign_base
-)
 
-add_executable(rmua19_robot_base2 nodes/rmua19_robot_base2_node.cpp)
-ament_target_dependencies(rmua19_robot_base2
+ament_target_dependencies(rmua19_robot_base
     rclcpp 
     std_msgs
     rmoss_interfaces
@@ -52,7 +34,7 @@ install( DIRECTORY
 )
 
 # Install executables
-install(TARGETS rmua19_robot_base  rmua19_robot_base2
+install(TARGETS rmua19_robot_base
   DESTINATION lib/${PROJECT_NAME}  
 )
 

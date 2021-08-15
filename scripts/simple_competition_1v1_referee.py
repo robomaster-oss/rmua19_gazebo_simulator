@@ -7,7 +7,7 @@ from std_msgs.msg import String
 red1_hp=500
 blue1_hp=500
 game_over = False
-is_debug = False
+get_debug = False
 
 def attack_info_callback(msg : String):
     #parse msg

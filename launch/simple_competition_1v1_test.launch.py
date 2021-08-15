@@ -35,7 +35,7 @@ def generate_launch_description():
     # robot base for each robot
     robot_names=["standard_robot_red1","standard_robot_blue1"]
     for robot_name in robot_names:
-        robot_base =Node(package='rmua19_ignition_simulator', executable='rmua19_robot_base2',
+        robot_base =Node(package='rmua19_ignition_simulator', executable='rmua19_robot_base',
             namespace= robot_name+"/robot_base",
             parameters=[
                 {"world_name": "default"},
@@ -45,13 +45,9 @@ def generate_launch_description():
         robot_ign_bridge = Node(package='ros_ign_bridge',executable='parameter_bridge',
             namespace= robot_name,
             arguments=["/world/default/model/%s/link/front_industrial_camera/sensor/front_industrial_camera/image@sensor_msgs/msg/Image[ignition.msgs.Image"%(robot_name),
-                    "/world/default/model/%s/link/front_rplidar_a2/sensor/front_rplidar_a2/scan@sensor_msgs/msg/LaserScan[ignition.msgs.LaserScan"%(robot_name),
-                    "/%s/odometry@nav_msgs/msg/Odometry[ignition.msgs.Odometry"%(robot_name)
             ],
             remappings=[
                 ("/world/default/model/%s/link/front_industrial_camera/sensor/front_industrial_camera/image"%(robot_name),"front_camera/image"),
-                ("/world/default/model/%s/link/front_rplidar_a2/sensor/front_rplidar_a2/scan"%(robot_name),"rplidar_a2/scan"),
-                ("/%s/odometry"%(robot_name),"robot_base/odom"),
             ],
             output='screen'
         )

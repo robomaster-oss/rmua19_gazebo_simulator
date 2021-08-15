@@ -29,9 +29,9 @@
                     <scan>
                         <horizontal>
                             <samples>${samples}</samples>
-                            <resolution>0.9</resolution>
-                            <min_angle>-3.14159265359</min_angle>
-                            <max_angle>3.14159265359</max_angle>
+                            <resolution>1.0</resolution>
+                            <min_angle>0</min_angle>
+                            <max_angle>6.28000020980835</max_angle>
                         </horizontal>
                     </scan>
                     <range>
