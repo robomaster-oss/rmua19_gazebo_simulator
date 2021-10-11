@@ -21,7 +21,7 @@ def generate_launch_description():
     ld = LaunchDescription()
     pkg_rmua19_ignition_simulator = get_package_share_directory('rmua19_ignition_simulator')
     # Gazebo launch
-    world_sdf_path = os.path.join(pkg_rmua19_ignition_simulator, 'worlds', 'rmua19_world_1v1.sdf')
+    world_sdf_path = os.path.join(pkg_rmua19_ignition_simulator, 'resource', 'worlds', 'rmua19_world_1v1.sdf')
     ign_config_path = os.path.join(pkg_rmua19_ignition_simulator, 'ign', 'gui.config')
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(

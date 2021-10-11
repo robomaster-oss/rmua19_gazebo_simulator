@@ -1,10 +1,10 @@
 <?xml version="1.0" ?>
 <sdf version="1.7">
     <!--include defination-->
-    <xacro_include_definition uri="model://rmua19_standard_robot_b/rmua19_standard_robot_b.def.xmacro" />
-    <xacro_define_property name="global_light_bar_red" value="1 0 0" />
-    <xacro_define_property name="global_light_bar_blue" value="0 0 1" />
-    <xacro_define_property name="global_armor_sticker_num1" value="model://rm21_armor_module/materials/textures/armor_sticker_num1.png" />
+    <xmacro_include uri="model://rmua19_standard_robot_b/rmua19_standard_robot_b.def.xmacro" />
+    <xmacro_define_value name="global_light_bar_red" value="1 0 0" />
+    <xmacro_define_value name="global_light_bar_blue" value="0 0 1" />
+    <xmacro_define_value name="global_armor_sticker_num1" value="model://rm21_armor_module/materials/textures/armor_sticker_num1.png" />
     <world name="default">
         <!-- Physics -->
         <plugin
@@ -48,12 +48,12 @@
         <!--robot:red1-->
         <model name="standard_robot_red1">
             <pose>-3.5 -2 0.08 0 0 0</pose>
-            <xacro_macro name="rmua19_standard_robot_b" light_bar_rgb="${global_light_bar_red}" armor_sticker_map_uri="${global_armor_sticker_num1}"/>
+            <xmacro_block name="rmua19_standard_robot_b" light_bar_rgb="${global_light_bar_red}" armor_sticker_map_uri="${global_armor_sticker_num1}"/>
         </model>
         <!--robot:blue1-->
         <model name="standard_robot_blue1">
            <pose>3.5 2 0.08 0 0 3.14159</pose>
-           <xacro_macro name="rmua19_standard_robot_b" light_bar_rgb="${global_light_bar_blue}" armor_sticker_map_uri="${global_armor_sticker_num1}"/>
+           <xmacro_block name="rmua19_standard_robot_b" light_bar_rgb="${global_light_bar_blue}" armor_sticker_map_uri="${global_armor_sticker_num1}"/>
         </model>
     </world>
 </sdf>

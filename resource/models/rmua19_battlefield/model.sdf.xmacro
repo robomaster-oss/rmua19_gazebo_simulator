@@ -1,9 +1,9 @@
 <?xml version='1.0'?>
 <sdf version='1.7'>
-    <xacro_define_property name="wall_h" value="0.5" />
-    <xacro_define_property name="obstacle_h" value="0.4" />
+    <xmacro_define_value name="wall_h" value="0.5" />
+    <xmacro_define_value name="obstacle_h" value="0.4" />
     <!--macro defination:wall_visual_collision-->
-    <xacro_define_macro name="wall_visual_collision" params="x y z">
+    <xmacro_define_block name="wall_visual_collision" params="x y z">
         <collision name='collision'>
             <geometry>
                 <box>
@@ -28,7 +28,7 @@
                 </pbr>
             </material>
         </visual>
-    </xacro_define_macro>
+    </xmacro_define_block>
     <model name='rmua19_battlefield'>
         <static>1</static>
         <!--ground_plane-->
@@ -58,48 +58,48 @@
         <!--the wall for the competition area: 8*5 -->
         <link name='wall_1'>
             <pose>0 2.6 0.25 0 0 0</pose>
-            <xacro_macro name="wall_visual_collision" x="8.4" y="0.2" z="0.5" />
+            <xmacro_block name="wall_visual_collision" x="8.4" y="0.2" z="0.5" />
         </link>
         <link name='wall_2'>
             <pose>0 -2.6 0.25 0 0 0</pose>
-            <xacro_macro name="wall_visual_collision" x="8.4" y="0.2" z="0.5" />
+            <xmacro_block name="wall_visual_collision" x="8.4" y="0.2" z="0.5" />
         </link>
         <link name='wall_3'>
             <pose>4.1 0 0.25 0 0 0</pose>
-            <xacro_macro name="wall_visual_collision" x="0.2" y="5.4" z="0.5" />
+            <xmacro_block name="wall_visual_collision" x="0.2" y="5.4" z="0.5" />
         </link>
         <link name='wall_4'>
             <pose>-4.1 0 0.25 0 0 0</pose>
-            <xacro_macro name="wall_visual_collision" x="0.2" y="5.4" z="0.5" />
+            <xmacro_block name="wall_visual_collision" x="0.2" y="5.4" z="0.5" />
         </link>
         <!-- immovable wooden obstacles :  1 × 0.25 × 0.4-->
         <link name='obstacle_1'>
             <pose>0 0 0.2 0 0 0</pose>
-            <xacro_macro name="wall_visual_collision" x="1" y="0.25" z="0.4" />
+            <xmacro_block name="wall_visual_collision" x="1" y="0.25" z="0.4" />
         </link>
         <link name='obstacle_2'>
             <pose>-2.3 1.375 0.2 0 0 0</pose>
-            <xacro_macro name="wall_visual_collision" x="1" y="0.25" z="0.4" />
+            <xmacro_block name="wall_visual_collision" x="1" y="0.25" z="0.4" />
         </link>
         <link name='obstacle_3'>
             <pose>2.3 -1.375 0.2 0 0 0</pose>
-            <xacro_macro name="wall_visual_collision" x="1" y="0.25" z="0.4" />
+            <xmacro_block name="wall_visual_collision" x="1" y="0.25" z="0.4" />
         </link>
         <link name='obstacle_4'>
             <pose>0.625 2 0.2 0 0 0</pose>
-            <xacro_macro name="wall_visual_collision" x="0.25" y="1" z="0.4" />
+            <xmacro_block name="wall_visual_collision" x="0.25" y="1" z="0.4" />
         </link>
         <link name='obstacle_5'>
             <pose>-0.625 -2 0.2 0 0 0</pose>
-            <xacro_macro name="wall_visual_collision" x="0.25" y="1" z="0.4" />
+            <xmacro_block name="wall_visual_collision" x="0.25" y="1" z="0.4" />
         </link>
         <link name='obstacle_6'>
             <pose>2.475 0.6 0.2 0 0 0</pose>
-            <xacro_macro name="wall_visual_collision" x="0.25" y="1" z="0.4" />
+            <xmacro_block name="wall_visual_collision" x="0.25" y="1" z="0.4" />
         </link>
         <link name='obstacle_7'>
             <pose>-2.475 -0.6 0.2 0 0 0</pose>
-            <xacro_macro name="wall_visual_collision" x="0.25" y="1" z="0.4" />
+            <xmacro_block name="wall_visual_collision" x="0.25" y="1" z="0.4" />
         </link>
     </model>
 </sdf>

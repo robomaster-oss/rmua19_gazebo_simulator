@@ -21,8 +21,8 @@ from launch_ros.actions import Node
 def generate_launch_description():
     robot_name = "standard_robot_red1"
     pkg_rmua19_ignition_simulator = get_package_share_directory('rmua19_ignition_simulator')
-    world_sdf_path = os.path.join(pkg_rmua19_ignition_simulator, 'worlds', 'rmua19_world.sdf')
-    robot_r1_sdf_path = os.path.join(pkg_rmua19_ignition_simulator, 'models', 'rmua19_standard_robot_a_red1','model.sdf')
+    world_sdf_path = os.path.join(pkg_rmua19_ignition_simulator, 'resource', 'worlds', 'rmua19_world.sdf')
+    robot_r1_sdf_path = os.path.join(pkg_rmua19_ignition_simulator, 'resource', 'models', 'rmua19_standard_robot_a_red1','model.sdf')
     ign_config_path = os.path.join(pkg_rmua19_ignition_simulator, 'ign', 'gui.config')
     # Gazebo launch
     gazebo = IncludeLaunchDescription(

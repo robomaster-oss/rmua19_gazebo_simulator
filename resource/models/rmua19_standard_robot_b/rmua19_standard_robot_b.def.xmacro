@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <sdf version="1.7">
     <!--include defination-->
-    <xacro_include_definition uri="model://rplidar_a2/model.sdf.xmacro" />
-    <xacro_include_definition uri="model://industrial_camera/model.sdf.xmacro" />
-    <xacro_include_definition uri="model://rmua19_standard_robot/rmua19_standard_robot.def.xmacro" />
+    <xmacro_include uri="model://rplidar_a2/model.sdf.xmacro" />
+    <xmacro_include uri="model://industrial_camera/model.sdf.xmacro" />
+    <xmacro_include uri="model://rmua19_standard_robot/rmua19_standard_robot.def.xmacro" />
     <!--rmua19_standard_robot B model-->
-    <xacro_define_macro name="rmua19_standard_robot_b" params="light_bar_rgb armor_sticker_map_uri">
-        <xacro_macro name="rmua19_standard_robot" light_bar_rgb="${light_bar_rgb}" armor_sticker_map_uri="${armor_sticker_map_uri}"/>
+    <xmacro_define_block name="rmua19_standard_robot_b" params="light_bar_rgb armor_sticker_map_uri">
+        <xmacro_block name="rmua19_standard_robot" light_bar_rgb="${light_bar_rgb}" armor_sticker_map_uri="${armor_sticker_map_uri}"/>
         <!--rplidar a2-->
-        <xacro_macro name="rplidar_a2" prefix="front_" parent="chassis" pose="0.155 0 0.1 0 0 0"
+        <xmacro_block name="rplidar_a2" prefix="front_" parent="chassis" pose="0.155 0 0.1 0 0 0"
                 update_rate="10" samples="400" visualize="true"/>
         <!--industrial camera-->
-        <xacro_macro name="industrial_camera" prefix="front_" parent="gimbal_pitch" pose="0.1 0 0.045 0 0 0"
+        <xmacro_block name="industrial_camera" prefix="front_" parent="gimbal_pitch" pose="0.1 0 0.045 0 0 0"
                             update_rate="30" horizontal_fov="1" width="640" height="480"/>
         <!--plugins-->
         <!--plugin for joint state sensor-->
@@ -52,5 +52,5 @@
             <projectile_velocity>20</projectile_velocity>
             <projectile_uri>model://rm_projectile_17mm</projectile_uri>
         </plugin>
-    </xacro_define_macro>
+    </xmacro_define_block>
 </sdf>

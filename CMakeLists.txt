@@ -18,7 +18,7 @@ find_package(rmoss_interfaces REQUIRED)
 find_package(rmoss_ign_base REQUIRED)
 
 # rmua19_robot_base
-add_executable(rmua19_robot_base nodes/rmua19_robot_base_node.cpp)
+add_executable(rmua19_robot_base src/rmua19_robot_base_main.cpp)
 
 ament_target_dependencies(rmua19_robot_base
     rclcpp 
@@ -29,7 +29,7 @@ ament_target_dependencies(rmua19_robot_base
 
 # Install
 install( DIRECTORY
-    ign launch models rviz worlds 
+    ign launch resource rviz 
   DESTINATION share/${PROJECT_NAME}
 )
 
