@@ -16,13 +16,14 @@ from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
-
+from xmacro.xmacro4sdf import XMLMacro4sdf
 
 def generate_launch_description():
     ld = LaunchDescription()
     pkg_rmua19_ignition_simulator = get_package_share_directory('rmua19_ignition_simulator')
     # Gazebo launch
-    world_sdf_path = os.path.join(pkg_rmua19_ignition_simulator, 'resource', 'worlds', 'rmua19_world_1v1.sdf')
+    world_sdf_path = os.path.join(pkg_rmua19_ignition_simulator, 'resource', 'worlds', 'rmua19_world.sdf')
+    robot_xmacro_path = os.path.join(pkg_rmua19_ignition_simulator, 'resource', 'models', 'rmua19_standard_robot_b','model.sdf.xmacro')
     ign_config_path = os.path.join(pkg_rmua19_ignition_simulator, 'ign', 'gui.config')
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -33,8 +34,24 @@ def generate_launch_description():
         }.items()
     )
     ld.add_action(gazebo)
-    # robot base for each robot
+    # robot names
     robot_names=["standard_robot_red1","standard_robot_blue1"]
+    # Spawn robot
+    robot_macro = XMLMacro4sdf()
+    robot_macro.set_xml_file(robot_xmacro_path)
+    robot_macro.generate({"global_initial_color":"red"})
+    robot_xml = robot_macro.to_string()
+    spawn1 = Node(package='ros_ign_gazebo', executable='create',
+        arguments=['-name', robot_names[0] ,'-x', '-3.5','-y', '-2','-z', '0.08', '-string', robot_xml],
+        output='screen')
+    ld.add_action(spawn1)
+    robot_macro.generate({"global_initial_color":"blue"})
+    robot_xml = robot_macro.to_string()
+    spawn2 = Node(package='ros_ign_gazebo', executable='create',
+        arguments=['-name', robot_names[1] ,'-x', '3.5','-y', '2','-z', '0.08', '-Y', '3.14159', '-string', robot_xml],
+        output='screen')
+    ld.add_action(spawn2)
+    # robot base for each robot
     for robot_name in robot_names:
         robot_base =Node(package='rmua19_ignition_simulator', executable='rmua19_robot_base',
             namespace= robot_name+"/robot_base",

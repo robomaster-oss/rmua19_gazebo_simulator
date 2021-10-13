@@ -40,7 +40,7 @@ def generate_launch_description():
     # Spawn robot
     robot_macro = XMLMacro4sdf()
     robot_macro.set_xml_file(robot_xmacro_path)
-    robot_macro.generate({"global_light_bar_rgb":"1 0 0"})
+    robot_macro.generate({"global_initial_color":"red"})
     robot_xml = robot_macro.to_string()
     spawn1 = Node(package='ros_ign_gazebo', executable='create',
         arguments=['-name', robot_names[0] ,'-x', '-1','-y', '-0.5','-z', '0.1', '-string', robot_xml],

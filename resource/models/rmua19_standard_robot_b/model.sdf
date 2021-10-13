@@ -409,13 +409,13 @@
 				</geometry>
 			</collision>
 		</link>
-		<joint name="small_armor_0_joint" type="fixed">
+		<joint name="armor_0_joint" type="fixed">
 			<pose relative_to="armor_support_frame_0">0.075 0 -0.071 0 -0.262 0</pose>
 			<parent>armor_support_frame_0</parent>
-			<child>small_armor_0</child>
+			<child>armor_0</child>
 		</joint>
-		<link name="small_armor_0">
-			<pose relative_to="small_armor_0_joint">0 0 0 0 0 0</pose>
+		<link name="armor_0">
+			<pose relative_to="armor_0_joint">0 0 0 0 0 0</pose>
 			<inertial>
 				<pose>0 0 0.065 0 0 0</pose>
 				<mass>0.1</mass>
@@ -449,10 +449,9 @@
 					</mesh>
 				</geometry>
 				<material>
-					<ambient>1 0 0 1</ambient>
-					<diffuse>1 0 0 1</diffuse>
+					<ambient>1 1 1 1</ambient>
+					<diffuse>1 1 1 1</diffuse>
 					<specular>1 1 1 1</specular>
-					<emissive>1 0 0 1</emissive>
 				</material>
 			</visual>
 			<visual name="sticker_visual">
@@ -526,13 +525,13 @@
 				</geometry>
 			</collision>
 		</link>
-		<joint name="small_armor_1_joint" type="fixed">
+		<joint name="armor_1_joint" type="fixed">
 			<pose relative_to="armor_support_frame_1">0.075 0 -0.071 0 -0.262 0</pose>
 			<parent>armor_support_frame_1</parent>
-			<child>small_armor_1</child>
+			<child>armor_1</child>
 		</joint>
-		<link name="small_armor_1">
-			<pose relative_to="small_armor_1_joint">0 0 0 0 0 0</pose>
+		<link name="armor_1">
+			<pose relative_to="armor_1_joint">0 0 0 0 0 0</pose>
 			<inertial>
 				<pose>0 0 0.065 0 0 0</pose>
 				<mass>0.1</mass>
@@ -566,10 +565,9 @@
 					</mesh>
 				</geometry>
 				<material>
-					<ambient>1 0 0 1</ambient>
-					<diffuse>1 0 0 1</diffuse>
+					<ambient>1 1 1 1</ambient>
+					<diffuse>1 1 1 1</diffuse>
 					<specular>1 1 1 1</specular>
-					<emissive>1 0 0 1</emissive>
 				</material>
 			</visual>
 			<visual name="sticker_visual">
@@ -643,13 +641,13 @@
 				</geometry>
 			</collision>
 		</link>
-		<joint name="small_armor_2_joint" type="fixed">
+		<joint name="armor_2_joint" type="fixed">
 			<pose relative_to="armor_support_frame_2">0.075 0 -0.071 0 -0.262 0</pose>
 			<parent>armor_support_frame_2</parent>
-			<child>small_armor_2</child>
+			<child>armor_2</child>
 		</joint>
-		<link name="small_armor_2">
-			<pose relative_to="small_armor_2_joint">0 0 0 0 0 0</pose>
+		<link name="armor_2">
+			<pose relative_to="armor_2_joint">0 0 0 0 0 0</pose>
 			<inertial>
 				<pose>0 0 0.065 0 0 0</pose>
 				<mass>0.1</mass>
@@ -683,10 +681,9 @@
 					</mesh>
 				</geometry>
 				<material>
-					<ambient>1 0 0 1</ambient>
-					<diffuse>1 0 0 1</diffuse>
+					<ambient>1 1 1 1</ambient>
+					<diffuse>1 1 1 1</diffuse>
 					<specular>1 1 1 1</specular>
-					<emissive>1 0 0 1</emissive>
 				</material>
 			</visual>
 			<visual name="sticker_visual">
@@ -760,13 +757,13 @@
 				</geometry>
 			</collision>
 		</link>
-		<joint name="small_armor_3_joint" type="fixed">
+		<joint name="armor_3_joint" type="fixed">
 			<pose relative_to="armor_support_frame_3">0.075 0 -0.071 0 -0.262 0</pose>
 			<parent>armor_support_frame_3</parent>
-			<child>small_armor_3</child>
+			<child>armor_3</child>
 		</joint>
-		<link name="small_armor_3">
-			<pose relative_to="small_armor_3_joint">0 0 0 0 0 0</pose>
+		<link name="armor_3">
+			<pose relative_to="armor_3_joint">0 0 0 0 0 0</pose>
 			<inertial>
 				<pose>0 0 0.065 0 0 0</pose>
 				<mass>0.1</mass>
@@ -800,10 +797,9 @@
 					</mesh>
 				</geometry>
 				<material>
-					<ambient>1 0 0 1</ambient>
-					<diffuse>1 0 0 1</diffuse>
+					<ambient>1 1 1 1</ambient>
+					<diffuse>1 1 1 1</diffuse>
 					<specular>1 1 1 1</specular>
-					<emissive>1 0 0 1</emissive>
 				</material>
 			</visual>
 			<visual name="sticker_visual">
@@ -868,20 +864,19 @@
 					</mesh>
 				</geometry>
 			</visual>
-			<visual name="light_indicator_bar_visual">
+			<visual name="light_bar_visual">
 				<geometry>
 					<mesh>
 						<uri>model://rm21_light_indicator_module/meshes/light_indicator_bar.dae</uri>
 					</mesh>
 				</geometry>
 				<material>
-					<ambient>1 0 0 1</ambient>
-					<diffuse>1 0 0 1</diffuse>
-					<specular>1 1 1 1</specular>
-					<emissive>1 0 0 1</emissive>
+					<diffuse>1.0 1.0 1.0</diffuse>
+					<specular>1.0 1.0 1.0</specular>
+					<ambient>1.0 1.0 1.0</ambient>
 				</material>
 			</visual>
-			<collision name="light_indicator_bar_collision">
+			<collision name="light_bar_collision">
 				<pose>0 0 0.06 0 0 0</pose>
 				<geometry>
 					<box>
@@ -891,13 +886,13 @@
 			</collision>
 		</link>
 		<!--speed_monitor_17mm-->
-		<joint name="speed_monitor_17mm_joint" type="fixed">
+		<joint name="speed_monitor_joint" type="fixed">
 			<pose relative_to="gimbal_pitch">0.07 0 0 0 0 0</pose>
 			<parent>gimbal_pitch</parent>
-			<child>speed_monitor_17mm</child>
+			<child>speed_monitor</child>
 		</joint>
-		<link name="speed_monitor_17mm">
-			<pose relative_to="speed_monitor_17mm_joint">0 0 0 0 0 0</pose>
+		<link name="speed_monitor">
+			<pose relative_to="speed_monitor_joint">0 0 0 0 0 0</pose>
 			<inertial>
 				<pose>0.055 0 0 0 0 0</pose>
 				<mass>0.1</mass>
@@ -924,10 +919,9 @@
 					</mesh>
 				</geometry>
 				<material>
-					<ambient>1 0 0 1</ambient>
-					<diffuse>1 0 0 1</diffuse>
-					<specular>1 1 1 1</specular>
-					<emissive>1 0 0 1</emissive>
+					<diffuse>1.0 1.0 1.0</diffuse>
+					<specular>1.0 1.0 1.0</specular>
+					<ambient>1.0 1.0 1.0</ambient>
 				</material>
 			</visual>
 			<collision name="collision">
@@ -1053,6 +1047,17 @@
 			</sensor>
 		</link>
 		<!--plugins-->
+		<!--plugin for light bar-->
+		<plugin filename="LightBarController" name="ignition::gazebo::systems::LightBarController">
+			<name>color</name>
+			<link_visual>armor_0/light_bar_visual</link_visual>
+			<link_visual>armor_1/light_bar_visual</link_visual>
+			<link_visual>armor_2/light_bar_visual</link_visual>
+			<link_visual>armor_3/light_bar_visual</link_visual>
+			<link_visual>light_indicator/light_bar_visual</link_visual>
+			<link_visual>speed_monitor/light_bar_visual</link_visual>
+			<initial_state>1</initial_state>
+		</plugin>
 		<!--plugin for joint state sensor-->
 		<plugin filename="ignition-gazebo-joint-state-publisher-system" name="ignition::gazebo::systems::JointStatePublisher">
 			<joint_name>gimbal_pitch_joint</joint_name>

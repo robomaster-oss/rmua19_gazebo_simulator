@@ -17,12 +17,13 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
+from xmacro.xmacro4sdf import XMLMacro4sdf
 
 def generate_launch_description():
-    robot_name = "standard_robot_red1"
+    ld = LaunchDescription()
     pkg_rmua19_ignition_simulator = get_package_share_directory('rmua19_ignition_simulator')
     world_sdf_path = os.path.join(pkg_rmua19_ignition_simulator, 'resource', 'worlds', 'rmua19_world.sdf')
-    robot_r1_sdf_path = os.path.join(pkg_rmua19_ignition_simulator, 'resource', 'models', 'rmua19_standard_robot_a_red1','model.sdf')
+    robot_xmacro_path = os.path.join(pkg_rmua19_ignition_simulator, 'resource', 'models', 'rmua19_standard_robot_a','model.sdf.xmacro')
     ign_config_path = os.path.join(pkg_rmua19_ignition_simulator, 'ign', 'gui.config')
     # Gazebo launch
     gazebo = IncludeLaunchDescription(
@@ -33,55 +34,40 @@ def generate_launch_description():
             'ign_args': world_sdf_path + ' -v 4 --gui-config ' + ign_config_path,
         }.items()
     )
+    ld.add_action(gazebo)
+
+    robot_names=["standard_robot_red1"]
     # Spawn robot
+    robot_macro = XMLMacro4sdf()
+    robot_macro.set_xml_file(robot_xmacro_path)
+    robot_macro.generate({"global_initial_color":"red"})
+    robot_xml = robot_macro.to_string()
     spawn1 = Node(package='ros_ign_gazebo', executable='create',
-        arguments=['-name', robot_name,'-x', '-1','-y', '-0.5','-z', '0.1',
-                    '-file', robot_r1_sdf_path],
+        arguments=['-name', robot_names[0] ,'-x', '-1','-y', '-0.5','-z', '0.1', '-string', robot_xml],
         output='screen')
-    # robot base
-    chassis_controller =Node(package='rmoss_ign_base', executable='chassis_simple_controller',
-        namespace= robot_name+"/robot_base",
-        parameters=[
-            {'ign_chassis_cmd_topic': "/%s/cmd_vel"%(robot_name)},
-        ],
-        output='screen') 
-    gimbal_controller =Node(package='rmoss_ign_base', executable='gimbal_simple_controller',
-        namespace= robot_name+"/robot_base",
-        parameters=[
-            {'ign_pitch_topic': "/model/%s/joint/gimbal_pitch_joint/0/cmd_pos"%(robot_name)},
-            {'ign_yaw_topic': "/model/%s/joint/gimbal_yaw_joint/0/cmd_pos"%(robot_name)},
-        ],
-        output='screen') 
-    gimbal_publisher =Node(package='rmoss_ign_base', executable='gimbal_state_publisher',
-        namespace= robot_name+"/robot_base",
-        parameters=[
-            {'ign_topic': "/world/demo/model/%s/joint_state"%(robot_name)},
-        ],
-        output='screen') 
-    shooter_controller =Node(package='rmoss_ign_base', executable='shooter_simple_controller',
-        namespace= robot_name+"/robot_base",
-        parameters=[
-            {'ign_shoot_cmd_topic': "/%s/small_shooter/shoot"%(robot_name)},
-        ],
-        output='screen') 
-    # Bridge
-    ign_bridge = Node(
-        package='ros_ign_bridge',
-        executable='parameter_bridge',
-        arguments=["/world/demo/model/%s/link/front_industrial_camera/sensor/front_industrial_camera/image@sensor_msgs/msg/Image[ignition.msgs.Image"%(robot_name),
-                   "/world/demo/model/%s/link/chassis/sensor/chassis_imu/imu@sensor_msgs/msg/Imu[ignition.msgs.IMU"%(robot_name),
-                   "/world/demo/model/%s/link/front_rplidar_a2/sensor/front_rplidar_a2/scan@sensor_msgs/msg/LaserScan[ignition.msgs.LaserScan"%(robot_name),
-                   "%s/odometry@nav_msgs/msg/Odometry[ignition.msgs.Odometry"%(robot_name)
-        ],
-        remappings=[
-            ("/world/demo/model/%s/link/front_industrial_camera/sensor/front_industrial_camera/image"%(robot_name),"%s/front_camera/image"%(robot_name)),
-            ("/world/demo/model/%s/link/chassis/sensor/chassis_imu/imu"%(robot_name),"%s/chassis_imu"%(robot_name)),
-            ("/world/demo/model/%s/link/front_rplidar_a2/sensor/front_rplidar_a2/scan"%(robot_name),"%s/laser_scan"%(robot_name)),
-        ],
-        output='screen'
-    )
-    return LaunchDescription([
-        gazebo, spawn1,
-        chassis_controller,gimbal_controller,gimbal_publisher,shooter_controller,
-        ign_bridge
-    ])
+    ld.add_action(spawn1)
+    # Spawn robot    
+    for robot_name in robot_names:
+        robot_base =Node(package='rmua19_ignition_simulator', executable='rmua19_robot_base',
+            namespace= robot_name+"/robot_base",
+            parameters=[
+                {"world_name": "default"},
+                {"robot_name": robot_name},
+            ],
+            output='screen') 
+        robot_ign_bridge = Node(package='ros_ign_bridge',executable='parameter_bridge',
+            namespace= robot_name,
+            arguments=["/world/default/model/%s/link/front_industrial_camera/sensor/front_industrial_camera/image@sensor_msgs/msg/Image[ignition.msgs.Image"%(robot_name),
+                    "/world/default/model/%s/link/front_rplidar_a2/sensor/front_rplidar_a2/scan@sensor_msgs/msg/LaserScan[ignition.msgs.LaserScan"%(robot_name),
+                    "/%s/odometry@nav_msgs/msg/Odometry[ignition.msgs.Odometry"%(robot_name)
+            ],
+            remappings=[
+                ("/world/default/model/%s/link/front_industrial_camera/sensor/front_industrial_camera/image"%(robot_name),"front_camera/image"),
+                ("/world/default/model/%s/link/front_rplidar_a2/sensor/front_rplidar_a2/scan"%(robot_name),"rplidar_a2/scan"),
+                ("/%s/odometry"%(robot_name),"robot_base/odom"),
+            ],
+            output='screen'
+        )
+        ld.add_action(robot_base)
+        ld.add_action(robot_ign_bridge)
+    return ld

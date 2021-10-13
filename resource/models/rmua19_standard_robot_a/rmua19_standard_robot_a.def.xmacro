@@ -4,15 +4,15 @@
     <xmacro_include uri="model://rplidar_a2/model.sdf.xmacro" />
     <xmacro_include uri="model://industrial_camera/model.sdf.xmacro" />
     <xmacro_include uri="model://rmua19_standard_robot/rmua19_standard_robot.def.xmacro" />
-    <!--rmua19_standard_robot B model-->
-    <xmacro_define_block name="rmua19_standard_robot_b" params="initial_color armor_sticker_map_uri">
+    <!--rmua19_standard_robot A model-->
+    <xmacro_define_block name="rmua19_standard_robot_a" params="initial_color armor_sticker_map_uri">
         <xmacro_block name="rmua19_standard_robot" armor_sticker_map_uri="${armor_sticker_map_uri}"/>
         <!--rplidar a2-->
         <xmacro_block name="rplidar_a2" prefix="front_" parent="chassis" pose="0.155 0 0.1 0 0 0"
-                update_rate="10" samples="400" visualize="true"/>
+                    update_rate="10" samples="400" visualize="true"/>
         <!--industrial camera-->
-        <xmacro_block name="industrial_camera" prefix="front_" parent="gimbal_pitch" pose="0.1 0 0.045 0 0 0"
-                            update_rate="30" horizontal_fov="1" width="640" height="480"/>
+        <xmacro_block name="industrial_camera" prefix="front_" parent="gimbal_yaw" pose="0.038 0 0.07 0 0 0"
+                    update_rate="30" horizontal_fov="1" width="640" height="480"/>
         <!--plugins-->
         <!--plugin for light bar-->
        <plugin filename="LightBarController" name="ignition::gazebo::systems::LightBarController">

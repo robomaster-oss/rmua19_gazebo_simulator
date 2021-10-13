@@ -8,10 +8,9 @@ rmua19_ignition_simulator是基于Ignition Gazebo的仿真环境，为RoboMaster
 
 目前rmua19_ignition_simulator还不完善，仅提供以下功能：
 
-
-在rmua19标准机器人（rmua19_standard_robot）上增加相关传感器，并实例化不同机器人模型:
-  * 搭载云台相机industrial_camera和搭载激光雷达rplidar_a2，其中相机放置有在yaw轴（对应rmua19_standard_robot1模型）和pitch轴（对应rmua19_standard_robot2模型）两种方案
-  * 实例化不同颜色（红，蓝），不同编号（1号，2号）机器人模型(rmua19_standard_robot2_red1,rmua19_standard_robot2_red2,rmua19_standard_robot2_blue1,rmua19_standard_robot2_blue2)
+在rmua19标准机器人（rmua19_standard_robot）上增加相关传感器，构建不同机器人模型:
+  * rmua19_standard_robot_a：搭载云台相机industrial_camera和搭载激光雷达rplidar_a2，其中相机放置有在yaw轴。
+  * rmua19_standard_robot_b：搭载云台相机industrial_camera和搭载激光雷达rplidar_a2，其中相机放置有在pitch轴。
 
 构建RoboMaster University AI Challenge 2019简易场地(models/rmua19_battlefield):
   * 只有围墙
@@ -30,6 +29,8 @@ rmua19_ignition_simulator是基于Ignition Gazebo的仿真环境，为RoboMaster
 ```bash
 # install ros-ign package
 sudo apt-get install ros-galactic-ros-ign
+# install xmacro (xml macro tool for sdf)
+pip install xmacro
 # cd src directory of ros2 workspace 
 git clone https://github.com/robomaster-oss/rmoss_interfaces
 git clone https://github.com/robomaster-oss/rmoss_ign
@@ -42,7 +43,8 @@ colcon build
 **启动仿真环境**
 
 ```bash
-ros2 launch rmua19_ignition_simulator standard_robot2_test.launch.py 
+# ros2 launch rmua19_ignition_simulator standard_robot_a_test.launch.py 
+ros2 launch rmua19_ignition_simulator standard_robot_b_test.launch.py 
 ```
 
 * 注意：需要点击ignition界面上的橙红色的`启动`按钮
