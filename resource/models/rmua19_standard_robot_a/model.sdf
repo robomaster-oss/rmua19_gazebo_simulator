@@ -12,12 +12,13 @@
 		<!--chassis-->
 		<link name="chassis">
 			<inertial>
+				<pose>0 0 0.055 0 0 0</pose>
 				<mass>15.0</mass>
 				<inertia>
-					<ixx>0.100125</ixx>
+					<ixx>0.093125</ixx>
 					<ixy>0</ixy>
 					<ixz>0</ixz>
-					<iyy>0.190125</iyy>
+					<iyy>0.18312499999999998</iyy>
 					<iyz>0</iyz>
 					<izz>0.23399999999999999</izz>
 				</inertia>
@@ -30,10 +31,10 @@
 				</geometry>
 			</visual>
 			<collision name="chassis_base_collision">
-				<pose>0 0 0.055 0 0 0</pose>
+				<pose>0 0 0.045 0 0 0</pose>
 				<geometry>
 					<box>
-						<size>0.36 0.24 0.15</size>
+						<size>0.36 0.24 0.13</size>
 					</box>
 				</geometry>
 			</collision>
@@ -1094,3 +1095,4 @@
 		</plugin>
 	</model>
 </sdf>
+
