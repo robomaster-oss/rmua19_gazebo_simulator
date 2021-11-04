@@ -111,26 +111,6 @@ ros2 run rmua19_ignition_simulator simple_competition_1v1_referee.py
 /standard_robot_red1/rplidar_a2/scan
 ```
 
-**控制机器人-玩家web端**
-
-目前仅支持手柄操作，如XBOX360
-
-进入`scripts/player_web`目录，运行web服务器
-
-```bash
-python3 app.py standard_robot_red1 5000
-#使用方法，python3 app.py <robot_name> <web_port>
-```
-
-然后浏览器输入`http://127.0.0.1:5000/`即可，插入手柄，操作手柄操作机器人
-
-* 左摇杆：地盘平移
-* LT，RT：地盘左右旋转
-* 右摇滚：云台绝对偏移
-* RB：射击
-
-![](doc/imgs/player_web.png)
-
 ### 4. 维护者及开源许可证
 
 Maintainer: Zhenpeng Ge, zhenpeng.ge@qq.com
