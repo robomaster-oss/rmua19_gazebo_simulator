@@ -25,6 +25,11 @@ from rmoss_interfaces.msg import GimbalCmd
 from rmoss_interfaces.msg import ShootCmd
 import time
 
+# ==========================================
+#    ros functions
+# ==========================================
+from ros_handler import *
+
 # =====================================================================  Variables   ==========================================
 
 #
@@ -69,6 +74,12 @@ thread_lock = Lock()
 
 
 # =====================================================================  Functions   ==========================================
+
+# ==========================================
+#    发送控制指令
+# ==========================================
+def send_instruction(chassis_x, chassis_y, gimbal_pitch, gimbal_yaw, shoot):
+    publish_chassis_cmd_msg(chassis_cmd_pub, chassis_x, chassis_y, 0.0)
 
 # ==========================================
 #    将图片处理成base64发送
@@ -120,8 +131,27 @@ def index():
 # ==========================================
 @socketio.on('control')
 def control(message):
-   
-   pass
+    global speed, gimbal_pitch, gimbal_yaw
+    chassis_x = 0.0
+    chassis_y = 0.0
+    movement_x = 0.0
+    movement_y = 0.0
+    shoot = False
+    if message['w']:
+        chassis_x = chassis_x + 1*speed
+    if message['s']:
+        chassis_x = chassis_x - 1*speed
+    if message['a']:
+        chassis_y = chassis_y + 1*speed
+    if message['d']:
+        chassis_y = chassis_y - 1*speed
+    if message['q']:
+        speed = min((speed + 1), 3.0)
+    if message['e']:
+        speed = max((speed - 1), 0.0)
+
+    send_instruction(chassis_x, chassis_y, gimbal_pitch, gimbal_yaw, shoot)
+
 
 # ==========================================
 #    连接事件
@@ -166,4 +196,5 @@ if __name__ == '__main__':
         robot_name = str(sys.argv[1])
         port = int(sys.argv[2])
     print("Robot name:",robot_name, "Port:",port)
+    chassis_cmd_pub = node.create_publisher(ChassisCmd, '/%s/robot_base/chassis_cmd' % (robot_name), 10)
     socketio.run(app, host='0.0.0.0')
