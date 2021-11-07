@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+
+	<link rel="stylesheet" href="{{ url_for('static',filename='css/uikit.min.css',_external=True) }}" />
+	<link rel="stylesheet" href="{{ url_for('static',filename='css/main.css',_external=True) }}" />
+	<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css',_external=True) }}" />
+	<script type="text/javascript" src="{{ url_for('static',filename='js/variables.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static',filename='js/socket.io.js') }}"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js" integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ==" crossorigin="anonymous"></script> -->
+	<script src="{{ url_for('static',filename='js/uikit.min.js') }}"></script>
+	<script src="{{ url_for('static',filename='js/bootstrap.bundle.min.js') }}"></script>
+	<script src="{{ url_for('static',filename='js/uikit-icons.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static',filename='js/jquery-3.6.0.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static',filename='js/control.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static',filename='js/web_socket_utils.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static',filename='js/listener.js') }}"></script>
+</head>
+
+<body>
+	<div class="container colcenter">
+	<button class="uk-button uk-button-default" style="width:50%;z-index:10" onclick="start_game();">开始游戏</button>
+	</div>
+	<div class="colcenter" style="display:none;padding:5px;width:100vw;height:100vh;background-color: #fff;"
+		id="game_container">
+		<img class="video" id="camera">
+
+		</img>
+
+</body>
+<script>
+
+
+	var elem;
+	var game_container = $("#game_container");
+	window.onload = () => {
+		init_socket()
+	}
+
+	//------------------------------------
+	// 监听全屏事件
+	//------------------------------------
+	document.addEventListener('fullscreenchange', (e) => { fullscreenChange(e, game_container) }, false);
+	document.addEventListener('mozfullscreenchange', (e) => { fullscreenChange(e, game_container) }, false);
+	document.addEventListener('webkitfullscreenchange', (e) => { fullscreenChange(e, game_container) }, false);
+
+
+	//------------------------------------
+	// 监听指针锁定
+	//------------------------------------
+	document.addEventListener('pointerlockchange', pointerLockChange, false);
+	document.addEventListener('mozpointerlockchange', pointerLockChange, false);
+	document.addEventListener('webkitpointerlockchange', pointerLockChange, false);
+
+
+	//------------------------------------
+	// 监听指针锁定错误
+	//------------------------------------
+	document.addEventListener('pointerlockerror', pointerLockError, false);
+	document.addEventListener('mozpointerlockerror', pointerLockError, false);
+	document.addEventListener('webkitpointerlockerror', pointerLockError, false);
+
+
+	function start_game() {
+		elem = document.getElementById("game_container");
+		// 开始于使元素进入全屏模式。目前的实现
+		// 要求元素在请求指针锁定前要处于全屏模式下
+		// -- 这在以后可能会发生改变。
+		elem.requestFullscreen = elem.requestFullscreen ||
+			elem.mozRequestFullscreen ||
+			elem.mozRequestFullScreen ||
+			elem.webkitRequestFullscreen;
+		elem.requestFullscreen();
+	}
+</script>
+
+</html>
