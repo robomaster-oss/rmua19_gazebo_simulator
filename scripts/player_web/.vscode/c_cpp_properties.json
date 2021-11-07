@@ -1,0 +1,29 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/scurm/Desktop/ua_ws/install/rmoss_util/include/**",
+        "/home/scurm/Desktop/ua_ws/install/rmoss_projectile_motion/include/**",
+        "/home/scurm/Desktop/ua_ws/install/rmoss_ign_cam/include/**",
+        "/home/scurm/Desktop/ua_ws/install/rmoss_ign_base/include/**",
+        "/home/scurm/Desktop/ua_ws/install/rmoss_cam/include/**",
+        "/home/scurm/Desktop/ua_ws/install/rmoss_base/include/**",
+        "/home/scurm/Desktop/ua_ws/install/rmoss_interfaces/include/**",
+        "/opt/ros/galactic/include/**",
+        "/home/scurm/Desktop/ua_ws/src/rmoss_core/rmoss_base/include/**",
+        "/home/scurm/Desktop/ua_ws/src/rmoss_core/rmoss_cam/include/**",
+        "/home/scurm/Desktop/ua_ws/src/rmoss_core/rmoss_projectile_motion/include/**",
+        "/home/scurm/Desktop/ua_ws/src/rmoss_core/rmoss_util/include/**",
+        "/home/scurm/Desktop/ua_ws/src/rmoss_ign/rmoss_ign_base/include/**",
+        "/home/scurm/Desktop/ua_ws/src/rmoss_ign/rmoss_ign_cam/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS"
+    }
+  ],
+  "version": 4
+}

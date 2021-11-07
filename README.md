@@ -111,6 +111,17 @@ ros2 run rmua19_ignition_simulator simple_competition_1v1_referee.py
 /standard_robot_red1/rplidar_a2/scan
 ```
 
+### 3. 网页端使用
+
+- 切换到\rmua19_ignition_simulator\scripts\player_web目录下
+- pip install -r requirement.txt
+- 运行python main.py
+- 浏览器中输入127.0.0.1:5000即可。
+
+![image-20211107172525978](C:\Users\86133\AppData\Roaming\Typora\typora-user-images\image-20211107172525978.png)
+
+
+
 ### 4. 维护者及开源许可证
 
 Maintainer: Zhenpeng Ge, zhenpeng.ge@qq.com
