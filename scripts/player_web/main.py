@@ -117,7 +117,7 @@ def send_img_function(img):
 # ==========================================
 def ros_img_thread(node, robot_name, send_img_function):
     img_sub = node.create_subscription(Image, '/%s/front_camera/image' % (robot_name), img_callback(send_img_function),
-                                       rclpy.qos.qos_profile_sensor_data)
+                                       40)
     rclpy.spin(node)
     node.destroy_node()
 
@@ -174,6 +174,14 @@ def connect():
     with thread_lock:
         if img_thread is None:
             img_thread = socketio.start_background_task(ros_img_thread, node, robot_name, send_img_function)
+
+# ==========================================
+#    延迟
+# ==========================================
+@socketio.event
+def ping():
+    emit('pong')
+
 
 # ==========================================
 #    断开连接
