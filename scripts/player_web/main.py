@@ -30,6 +30,7 @@ import time
 # ==========================================
 from ros_handler import *
 
+
 # =====================================================================  Variables   ==========================================
 
 #
@@ -37,15 +38,10 @@ from ros_handler import *
 # ==========================================
 #    robot state
 # ==========================================
-
-# 云台状态
 gimbal_pitch = 0.0
 gimbal_yaw = 0.0
-
-# 移动速度
 speed = 1.0
 
-# 云台上界和下界
 yaw_upper_bound = 1.37
 yaw_lower_bound = -1.37
 pitch_upper_bound = 0.9
@@ -79,10 +75,16 @@ thread_lock = Lock()
 #    发送控制指令
 # ==========================================
 def send_instruction(chassis_x, chassis_y, gimbal_pitch, gimbal_yaw, shoot):
+    if shoot:
+        publish_shoot_cmd_msg(shoot_cmd_pub, 1, 20)
     publish_chassis_cmd_msg(chassis_cmd_pub, chassis_x, chassis_y, 0.0)
+    print(gimbal_yaw, gimbal_pitch)
+    publish_gimbal_cmd_msg(gimbal_cmd_pub, gimbal_yaw, gimbal_pitch)
+
+
 
 # ==========================================
-#    将图片处理成base64发送
+#    发送血量、弹药量、图像数据给前端的线程
 # ==========================================
 def img_callback(send_img_function):
     def func(msg: Image):
@@ -111,7 +113,7 @@ def send_img_function(img):
 
 
 # ==========================================
-#    发送血量、弹药量、图像数据给前端的线程
+#    图像处理线程
 # ==========================================
 def ros_img_thread(node, robot_name, send_img_function):
     img_sub = node.create_subscription(Image, '/%s/front_camera/image' % (robot_name), img_callback(send_img_function),
@@ -127,11 +129,11 @@ def index():
     return render_template('index.html', async_mode=socketio.async_mode)
 
 # ==========================================
-#    监听加键鼠控制事件
+#    监听控制事件
 # ==========================================
 @socketio.on('control')
 def control(message):
-    global speed, gimbal_pitch, gimbal_yaw
+    global speed, gimbal_pitch, gimbal_yaw, yaw_upper_bound, yaw_lower_bound, pitch_upper_bound, pitch_lower_bound
     chassis_x = 0.0
     chassis_y = 0.0
     movement_x = 0.0
@@ -146,12 +148,22 @@ def control(message):
     if message['d']:
         chassis_y = chassis_y - 1*speed
     if message['q']:
-        speed = min((speed + 1), 3.0)
+        speed = min((speed + 1), 5.0)
     if message['e']:
-        speed = max((speed - 1), 0.0)
-
+        speed = max((speed - 1), 1.0)
+    if message['shoot']:
+        shoot = True
+    movement_x = message['movementX']
+    movement_y = message['movementY']
+    if movement_x<=0:
+        gimbal_pitch = max(gimbal_pitch + movement_x, pitch_lower_bound)
+    else:
+        gimbal_pitch = min(gimbal_pitch + movement_x, pitch_upper_bound)
+    if movement_y<=0:
+        gimbal_yaw = max(gimbal_yaw + movement_y, yaw_lower_bound)
+    else:
+        gimbal_yaw = min(gimbal_yaw + movement_y, yaw_upper_bound)
     send_instruction(chassis_x, chassis_y, gimbal_pitch, gimbal_yaw, shoot)
-
 
 # ==========================================
 #    连接事件
@@ -197,4 +209,6 @@ if __name__ == '__main__':
         port = int(sys.argv[2])
     print("Robot name:",robot_name, "Port:",port)
     chassis_cmd_pub = node.create_publisher(ChassisCmd, '/%s/robot_base/chassis_cmd' % (robot_name), 10)
+    gimbal_cmd_pub = node.create_publisher(GimbalCmd, '/%s/robot_base/gimbal_cmd' % (robot_name), 10)
+    shoot_cmd_pub = node.create_publisher(ShootCmd, '/%s/robot_base/shoot_cmd' % (robot_name), 10)
     socketio.run(app, host='0.0.0.0')
