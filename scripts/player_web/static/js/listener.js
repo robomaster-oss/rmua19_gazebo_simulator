@@ -3,7 +3,6 @@
 // 监听全屏事件
 //------------------------------------
 function fullscreenChange(e, game_container) {
-	console.log(e)
 
 	if (document.webkitFullscreenElement === elem ||
 		document.mozFullscreenElement === elem ||
@@ -30,6 +29,10 @@ function fullscreenChange(e, game_container) {
 		
 		// 开启鼠标监听
 		document.addEventListener("mousemove", mouseListener);
+
+		// 开启获取图像
+		start_socket_transfer()
+
 		$(document).mousedown(function(e){
 				if(1 == e.which){
 					// console.log("你点击了鼠标左键");
@@ -43,17 +46,23 @@ function fullscreenChange(e, game_container) {
 				}
 			});
 
-		// 开启获取图像
+		
 		// start_socket_transfer(socket)
 		return
 	}
 	
 	// 解除监听器
 	document.removeEventListener("mousemove", mouseListener);
+	window.socket.close()
 	$(document).unbind("keydown");
 	$(document).unbind("keyup");
 	$(document).unbind("mousedown");
 	$(document).unbind("mouseup");
+	clearInterval(window.fp_timer);
+	clearInterval(window.control_timer);
+	$('#start_btn').attr('disabled',"true");
+	$('#start_btn').text("连接中");
+	init_socket()
 	// $('#background').attr('src', $("#camera")[0].src)
 	game_container.hide()
 
