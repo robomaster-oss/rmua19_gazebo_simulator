@@ -18,11 +18,9 @@ from rmoss_interfaces.msg import ShootCmd
 def publish_chassis_cmd_msg(pub, x, y, w):
     # print('pub chassis')
     msg = ChassisCmd()
+    msg.type = msg.FOLLOW_GIMBAL
     msg.twist.linear.x = x
     msg.twist.linear.y = y
-    msg.twist.linear.z = 0.0
-    msg.twist.angular.x = 0.0
-    msg.twist.angular.y = 0.0
     msg.twist.angular.z = w
     # print(msg)
     pub.publish(msg)

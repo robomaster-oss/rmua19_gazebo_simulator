@@ -17,25 +17,10 @@ find_package(geometry_msgs REQUIRED)
 find_package(rmoss_interfaces REQUIRED)
 find_package(rmoss_ign_base REQUIRED)
 
-# rmua19_robot_base
-add_executable(rmua19_robot_base src/rmua19_robot_base_main.cpp)
-
-ament_target_dependencies(rmua19_robot_base
-    rclcpp 
-    std_msgs
-    rmoss_interfaces
-    rmoss_ign_base
-)
-
 # Install
 install( DIRECTORY
-    ign launch resource rviz 
+    ign launch resource rviz config
   DESTINATION share/${PROJECT_NAME}
-)
-
-# Install executables
-install(TARGETS rmua19_robot_base
-  DESTINATION lib/${PROJECT_NAME}  
 )
 
 # Install executable scripts

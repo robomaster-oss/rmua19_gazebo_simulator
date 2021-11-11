@@ -1,20 +1,23 @@
-#  Copyright (c) 2020 robomaster-oss, All rights reserved.
+# Copyright 2021 RoboMaster-OSS
 #
-#  This program is free software: you can redistribute it and/or modify it
-#  under the terms of the MIT License, See the MIT License for more details.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
-#  You should have received a copy of the MIT License along with this program.
-#  If not, see <https://opensource.org/licenses/MIT/>.
-
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 import os
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import ExecuteProcess, DeclareLaunchArgument, IncludeLaunchDescription
-from launch.conditions import IfCondition
+from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
 from xmacro.xmacro4sdf import XMLMacro4sdf
@@ -24,6 +27,7 @@ def generate_launch_description():
     pkg_rmua19_ignition_simulator = get_package_share_directory('rmua19_ignition_simulator')
     world_sdf_path = os.path.join(pkg_rmua19_ignition_simulator, 'resource', 'worlds', 'rmua19_world.sdf')
     robot_xmacro_path = os.path.join(pkg_rmua19_ignition_simulator, 'resource', 'models', 'rmua19_standard_robot_b','model.sdf.xmacro')
+    robot_config = os.path.join(pkg_rmua19_ignition_simulator, 'config', 'base_params.yaml')
     ign_config_path = os.path.join(pkg_rmua19_ignition_simulator, 'ign', 'gui.config')
     # Gazebo launch
     gazebo = IncludeLaunchDescription(
@@ -40,31 +44,36 @@ def generate_launch_description():
     # Spawn robot
     robot_macro = XMLMacro4sdf()
     robot_macro.set_xml_file(robot_xmacro_path)
-    robot_macro.generate({"global_initial_color":"red"})
+    robot_macro.generate({'global_initial_color': 'red'})
     robot_xml = robot_macro.to_string()
-    spawn1 = Node(package='ros_ign_gazebo', executable='create',
-        arguments=['-name', robot_names[0] ,'-x', '-1','-y', '-0.5','-z', '0.1', '-string', robot_xml],
+    spawn1 = Node(
+        package='ros_ign_gazebo',
+        executable='create',
+        arguments=['-name', robot_names[0] ,'-x', '-3.5','-y', '-2','-z', '0.08', '-string', robot_xml],
         output='screen')
     ld.add_action(spawn1)
-    # Spawn robot    
+    # robot base for each robot
     for robot_name in robot_names:
-        robot_base =Node(package='rmua19_ignition_simulator', executable='rmua19_robot_base',
-            namespace= robot_name+"/robot_base",
+        robot_base = Node(
+            package='rmoss_ign_base',
+            executable='rmua19_robot_base',
+            namespace=robot_name,
             parameters=[
-                {"world_name": "default"},
-                {"robot_name": robot_name},
+                robot_config,
+                {'robot_name': robot_name},
             ],
-            output='screen') 
-        robot_ign_bridge = Node(package='ros_ign_bridge',executable='parameter_bridge',
-            namespace= robot_name,
-            arguments=["/world/default/model/%s/link/front_industrial_camera/sensor/front_industrial_camera/image@sensor_msgs/msg/Image[ignition.msgs.Image"%(robot_name),
-                    "/world/default/model/%s/link/front_rplidar_a2/sensor/front_rplidar_a2/scan@sensor_msgs/msg/LaserScan[ignition.msgs.LaserScan"%(robot_name),
-                    "/%s/odometry@nav_msgs/msg/Odometry[ignition.msgs.Odometry"%(robot_name)
+            output='screen')
+        robot_ign_bridge = Node(
+            package='ros_ign_bridge',
+            executable='parameter_bridge',
+            namespace=robot_name,
+            arguments=[
+                '/world/default/model/%s/link/front_industrial_camera/sensor/front_industrial_camera/image@sensor_msgs/msg/Image[ignition.msgs.Image'%(robot_name),
+                '/world/default/model/%s/link/front_rplidar_a2/sensor/front_rplidar_a2/scan@sensor_msgs/msg/LaserScan[ignition.msgs.LaserScan'%(robot_name),
             ],
             remappings=[
-                ("/world/default/model/%s/link/front_industrial_camera/sensor/front_industrial_camera/image"%(robot_name),"front_camera/image"),
-                ("/world/default/model/%s/link/front_rplidar_a2/sensor/front_rplidar_a2/scan"%(robot_name),"rplidar_a2/scan"),
-                ("/%s/odometry"%(robot_name),"robot_base/odom"),
+                ('/world/default/model/%s/link/front_industrial_camera/sensor/front_industrial_camera/image'%(robot_name),'front_camera/image'),
+                ('/world/default/model/%s/link/front_rplidar_a2/sensor/front_rplidar_a2/scan'%(robot_name),'rplidar_a2/scan'),
             ],
             output='screen'
         )
