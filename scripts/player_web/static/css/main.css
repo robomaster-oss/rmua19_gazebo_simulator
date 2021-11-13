@@ -55,3 +55,12 @@
 	box-shadow: 0 5px #666;
 	transform: translateY(2px);
 }
+.aim_point{
+	position: fixed;
+	width: 40px;
+	height: 40px;
+	z-index: 5;
+	left: 50%;
+	top:50%;
+	transform: translate(-50%,-50%);
+}
