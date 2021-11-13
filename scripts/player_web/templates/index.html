@@ -24,13 +24,15 @@
 	<div class="container colcenter">
 		<img class="video" id="background" style="position:absolute; top: 0;">
 		</img>
-		<button class="uk-button uk-button-primary" style="width:50%;z-index:10" onclick="start_game();" id="start_btn" disabled>连接中</button>
+		<button class="uk-button uk-button-primary" style="width:50%;z-index:10" onclick="start_game();" id="start_btn"
+			disabled>连接中</button>
 	</div>
 
 	<div class="colcenter" style="display:none;padding:5px;width:100vw;height:100vh;background-color: #fff;"
 		id="game_container">
-		<div class=" uk-width-1-1 uk-height-1-1" style="padding: 10px;position: fixed;top: 10px;">
-			<div class="rowbt" style="align-items: flex-start;">
+		<img class="aim_point" src="{{ url_for('static',filename='img/aim.png') }}">
+		<div class=" uk-width-1-1 uk-height-1-1">
+			<div class="rowbt" style="align-items: flex-start;position: fixed;top: 10px;width: 100%;padding: 10px;">
 				<div>
 					<div class="rowstart">
 						<div class="uk-label colstart" style="margin-right: 10px;" id="w"><span
@@ -45,16 +47,19 @@
 						<div class="uk-label colstart" style="margin-right: 10px;" id="d"><span
 								style="font-size: 18px;">D</span>向右
 						</div>
-						<div class="uk-label colstart" style="margin-right: 10px;width:" id="q"><span
+						<div class="uk-label colstart" style="margin-right: 10px;" id="q"><span
 								style="font-size: 18px;">Q</span>加速
 						</div>
-						<div class="uk-label colstart" style="margin-right: 10px;width:" id="e"><span
+						<div class="uk-label colstart" style="margin-right: 10px;" id="e"><span
 								style="font-size: 18px;">E</span>减速
 						</div>
-						<div class="uk-label colstart" style="margin-right: 20px;width:" id="shoot"><span
+						<div class="uk-label colstart" style="margin-right: 20px;" id="shoot"><span
 								style="font-size: 18px;">左键</span>射击
 						</div>
-						<div class="uk-label colstart" style="margin-right: 10px;width:" id="esc"><span
+						<div class="uk-label colstart" style="margin-right: 20px;" id="shoot"><span
+								style="font-size: 18px;">r</span>重置hp
+						</div>
+						<div class="uk-label colstart" style="margin-right: 10px;" id="esc"><span
 								style="font-size: 18px;">ESE</span>退出
 						</div>
 					</div>
@@ -76,11 +81,49 @@
 					</div>
 				</div>
 			</div>
-
+			<div class="rowbt" style="align-items: flex-start;position: fixed;bottom: 10px;width: 100%;padding: 10px;">
+				<div>
+					<div class=" rowstart" style="margin-right: 10px;padding: 5px;">
+						<div style="margin-right: 5px;">
+							blue_HP
+						</div>
+						<div class="progress" style="height:30px;width: 300px;">
+							<div id="hp_bar_blue" class="progress-bar" role="progressbar" style="width: 25%;"><span
+									id="blue_hp_text">500</span></div>
+						</div>
+					</div>
+				</div>
+				<div class=" rowstart" style="margin-right: 10px;padding: 5px;">
+					<div style="margin-right: 5px;">
+						red_HP
+					</div>
+					<div class="progress" style="height:30px;width: 300px;">
+						<div id="hp_bar_red" class="progress-bar bg-danger" role="progressbar" style="width: 25%;">
+							<span id="red_hp_text">500</span>
+						</div>
+					</div>
+				</div>
 		</div>
-		<img class="video" id="camera">
 
-		</img>
+	</div>
+	<!-- <div class=" uk-width-1-1 uk-height-1-1" style="padding: 10px;position: fixed;bottom: 10px;">
+			<div class="rowbt" style="align-items: flex-start;">
+				<div>
+				</div>
+				<div>
+					<div class="uk-label colstart" style="margin-right: 10px;padding: 5px;">
+						<progress id="js-progressbar" class="uk-progress" value="10" max="100"></progress>
+						<span style="margin-top: 5px;">
+							方向
+						</span>
+					</div>
+				</div>
+			</div>
+
+		</div> -->
+	<img class="video" id="camera">
+
+	</img>
 
 </body>
 <script>

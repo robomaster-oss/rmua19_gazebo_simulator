@@ -18,11 +18,3 @@ function mouse_up_controller(){
 	active_map['shoot'] = false
 	$("#shoot").removeClass("key_active");
 }
-
-// function mousemoveX_controller(value){
-// 	active_map['movementX'] = value
-// }
-//
-// function mousemoveY_controller(value){
-// 	active_map['movementY'] = value
-// }

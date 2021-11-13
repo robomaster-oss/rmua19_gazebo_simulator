@@ -9,6 +9,7 @@ var key_map = {
 	68:"d",
 	81:"q",
 	69:"e",
+	82:"reset",
 	27:"esc"
 	
 }
@@ -24,6 +25,7 @@ var active_map = {
 	"q":false,
 	"e":false,
 	"shoot":false,
+	"reset":false,
 	"movementX":0,
 	"movementY":0
 }
@@ -31,7 +33,7 @@ var active_map = {
 //------------------------------------
 // 发送间隔
 //------------------------------------
-var send_freq = 30
+var send_freq = 60
 
 //------------------------------------
 // 用于调整yaw的灵敏度， 越大越不灵敏
