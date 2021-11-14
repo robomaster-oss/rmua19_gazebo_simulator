@@ -33,8 +33,6 @@ function init_socket() {
         console.log('disconnect')
     });
 
-
-
 }
 
 //------------------------------------
@@ -49,7 +47,6 @@ function start_socket_transfer() {
     var red_bar = $('#hp_bar_red')
     socket = window.socket
     socket.on('image', function (message) {
-        console.log('1111')
         i++
         my_camera.setAttribute('src', 'data:image/png;base64,' + message.img)
     });
