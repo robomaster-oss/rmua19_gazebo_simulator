@@ -20,9 +20,9 @@ function init_socket() {
             console.log(chosen_robot[robot_names[i]])
             console.log(robot_names[i],chosen_robot[robot_names[i]]===true)
             $('#choose_robot_container').append(`
-            <div class="ch_box"  onclick="select_robot(this,'${robot_names[i]}',${chosen_robot[robot_names[i]]===undefined || chosen_robot[robot_names[i]]===true})">
+            <div class="ch_box"  onclick="select_robot(this,'${robot_names[i]}',${chosen_robot[robot_names[i]]===undefined || chosen_robot[robot_names[i]]===false})">
             <img src="static/img/robot.jpg" class="ch_img">
-            <span class="badge bg-${chosen_robot[robot_names[i]]===undefined || chosen_robot[robot_names[i]]===true?"success":"secondary"}">${chosen_robot[robot_names[i]]===undefined || chosen_robot[robot_names[i]]===true?"可选":"不可选"}</span>
+            <span class="badge bg-${chosen_robot[robot_names[i]]===undefined || chosen_robot[robot_names[i]]===false?"success":"secondary"}">${chosen_robot[robot_names[i]]===undefined || chosen_robot[robot_names[i]]===false?"可选":"不可选"}</span>
             <h5 class="card-title">${robot_names[i]}</h5>
             </div>
             `)

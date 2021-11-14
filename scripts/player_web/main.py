@@ -194,7 +194,7 @@ def send_instruction(chassis_x, chassis_y, gimbal_pitch, gimbal_yaw, shoot, shoo
 # ==========================================
 #       重置血量
 # ==========================================
-def reset_hp(reset_cmd_pub):
+def reset_hp():
     publish_reset_cmd_msg(reset_cmd_pub)
 
 # ==========================================
@@ -274,10 +274,10 @@ node=rclpy.create_node('player_web')
 # ==========================================
 #    init namespace class
 # ==========================================
-socketio.on_namespace(base_socket_handler('/'))
+socketio.on_namespace(BaseSocketHandler('/'))
 for robot_name in robot_names:
     print('robot_name:'+robot_name)
-    socketio.on_namespace(robot_socket_handler('/'+robot_name))
+    socketio.on_namespace(RobotSocketHandler('/'+robot_name))
 reset_cmd_pub = node.create_publisher(Int32, '/referee_system/reset', 10)
 
 if __name__ == '__main__':
