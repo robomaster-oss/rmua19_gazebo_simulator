@@ -44,3 +44,5 @@ var yaw_factor = 800
 // 越大越不灵敏
 //------------------------------------
 var pitch_factor = 800
+
+var my_robot

@@ -6,23 +6,41 @@ function init_socket() {
     socket.on('connect', function () {
         console.log('connect')
         // $('#red_hp_text').text(300)
-        $('#start_btn').removeAttr("disabled");
-        $('#start_btn').text("开始游戏");
+        // $('#start_btn').removeAttr("disabled");
+        $('#start_btn').text("请选择机器人");
 
     });
+    socket.on('robot_names', function (message) {
+        let robot_names = message.list
+        let chosen_robot = message.chosen
+        console.log(chosen_robot)
+        $('#choose_robot_container').empty()
+        window.robot_names = [...robot_names]
+        for (let i = 0; i < robot_names.length; i++) {
+            console.log(chosen_robot[robot_names[i]])
+            console.log(robot_names[i],chosen_robot[robot_names[i]]===true)
+            $('#choose_robot_container').append(`
+            <div class="ch_box"  onclick="select_robot(this,'${robot_names[i]}',${chosen_robot[robot_names[i]]===undefined || chosen_robot[robot_names[i]]===true})">
+            <img src="static/img/robot.jpg" class="ch_img">
+            <span class="badge bg-${chosen_robot[robot_names[i]]===undefined || chosen_robot[robot_names[i]]===true?"success":"secondary"}">${chosen_robot[robot_names[i]]===undefined || chosen_robot[robot_names[i]]===true?"可选":"不可选"}</span>
+            <h5 class="card-title">${robot_names[i]}</h5>
+            </div>
+            `)
+        }
 
+    });
     socket.on('disconnect', function () {
         console.log('disconnect')
     });
 
-    
+
 
 }
 
 //------------------------------------
 // 开始监听事件
 //------------------------------------
-function start_socket_transfer(socket){
+function start_socket_transfer() {
     var start_time;
     var i = 0
     var ping_arr = []
@@ -31,22 +49,23 @@ function start_socket_transfer(socket){
     var red_bar = $('#hp_bar_red')
     socket = window.socket
     socket.on('image', function (message) {
+        console.log('1111')
         i++
         my_camera.setAttribute('src', 'data:image/png;base64,' + message.img)
     });
     socket.on('blue_hp', function (message) {
-        console.log('blue_hp',message.value )
-        var hp = message.value 
+        console.log('blue_hp', message.value)
+        var hp = message.value
         // console.log(`${hp/5}%`)
-        blue_bar.css("width", `${hp/5}%`)
+        blue_bar.css("width", `${hp / 5}%`)
         // blue_bar.val(hp+'')
-        $('#blue_hp_text').text(hp+'')
+        $('#blue_hp_text').text(hp + '')
     });
     socket.on('red_hp', function (message) {
-        console.log('red_hp',message.value)
-        var hp = message.value 
-        red_bar.css("width", `${hp/5}%`)
-        $('#red_hp_text').text(hp+'')
+        console.log('red_hp', message.value)
+        var hp = message.value
+        red_bar.css("width", `${hp / 5}%`)
+        $('#red_hp_text').text(hp + '')
     });
     window.fp_timer = setInterval(() => {
         start_time = (new Date).getTime();
