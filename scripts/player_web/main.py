@@ -57,7 +57,7 @@ start_time = 0
 #    config
 # ==========================================
 async_mode = "threading"
-Payload.max_decode_packets = 1000
+Payload.max_decode_packets = 10000
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 CORS(app)
@@ -223,30 +223,29 @@ def send_img_callback(robot_name):
 # ==========================================
 #    发送血量、弹药量、图像数据给前端
 # ==========================================
-def send_refere_info_callback(kind):
+def send_refere_info_callback(kind, robot_name):
     global BLUE_HP, RED_HP, ATTACK_INFO
     def func(message):
         if kind == BLUE_HP:
-            socketio.emit('blue_hp', {'value': message.data})
+            socketio.emit('blue_hp', {'value': message.data}, namespace='/'+robot_name)
         elif kind == RED_HP:
-            socketio.emit('red_hp', {'value': message.data})
+            socketio.emit('red_hp', {'value': message.data}, namespace='/'+robot_name)
         else:    
-            socketio.emit('attack', {'value': message.data})
+            socketio.emit('attack', {'value': message.data}, namespace='/'+robot_name)
 
     return func
 
 # ==========================================
 #    信息发送线程
 # ==========================================
-def ros_info_thread(node, robot_name):
-    # for robot_name in robot_names
+def ros_info_thread(node, robot_name): 
     global BLUE_HP, RED_HP, ATTACK_INFO
     for robot_name in robot_names:
         img_sub = node.create_subscription(Image, '/%s/front_camera/image' % (robot_name), send_img_callback(robot_name),
                                         45)
-    blue_hp_sub = node.create_subscription(Int32, '/referee_system/standard_robot_blue1/hp', send_refere_info_callback(BLUE_HP),
-                                    10)
-    red_hp_sub = node.create_subscription(Int32, '/referee_system/standard_robot_red1/hp', send_refere_info_callback(RED_HP),
+        blue_hp_sub = node.create_subscription(Int32, '/referee_system/standard_robot_blue1/hp', send_refere_info_callback(BLUE_HP, robot_name),
+                                        10)
+        red_hp_sub = node.create_subscription(Int32, '/referee_system/standard_robot_red1/hp', send_refere_info_callback(RED_HP, robot_name),
                                         10)
     # attack_info_sub = node.create_subscription(String, '/referee_system/attack_info', send_refere_info_callback(ATTACK_INFO),
     # .                                    10)
