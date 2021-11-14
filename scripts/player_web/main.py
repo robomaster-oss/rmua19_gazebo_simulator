@@ -71,7 +71,7 @@ log.setLevel(logging.ERROR)
 # ==========================================
 #    handle each robot player
 # ==========================================
-class robot_socket_handler(Namespace):
+class RobotSocketHandler(Namespace):
     def __init__(self, namespace):
         super().__init__(namespace=namespace)
         self.robot_name = namespace[1:]
@@ -136,16 +136,6 @@ class robot_socket_handler(Namespace):
             self.gimbal_pitch = min(self.gimbal_pitch + movement_pitch, self.pitch_upper_bound)
         self.gimbal_yaw = self.gimbal_yaw + movement_yaw
         send_instruction(chassis_x, chassis_y, self.gimbal_pitch, self.gimbal_yaw, shoot,self.shoot_cmd_pub, self.chassis_cmd_pub, self.gimbal_cmd_pub)
-    
-    # ==========================================
-    #    发送控制指令
-    # ==========================================
-    def send_instruction(self, chassis_x, chassis_y, gimbal_pitch, gimbal_yaw, shoot):
-        if shoot:
-            publish_shoot_cmd_msg(self.shoot_cmd_pub, 1, 20)
-        publish_chassis_cmd_msg(self.chassis_cmd_pub, chassis_x, chassis_y, 0.0)
-        # print(gimbal_yaw, gimbal_pitch)
-        publish_gimbal_cmd_msg(self.gimbal_cmd_pub, gimbal_pitch, gimbal_yaw)
 
     def on_default_error_handler(self, e):
         print("======================= ERROR =======================")
@@ -158,11 +148,35 @@ class robot_socket_handler(Namespace):
         # print['1']
         chosen_robot_dict[self.robot_name] = False
         print(chosen_robot_dict)
+class BaseSocketHandler(Namespace):
+    # ==========================================
+    #    连接事件
+    # ==========================================
+    def on_connect(self):
+    #     global info_thread, node, robot_names, chosen_robot_dict
+    #     with thread_lock:
+    #         if info_thread is None:
+    #             info_thread = socketio.start_background_task(ros_info_thread, node, robot_name)
+        emit('robot_names', {'list': robot_names, 'chosen': chosen_robot_dict})
 
 
+    # ==========================================
+    #    延迟
+    # ==========================================
+    def on_ping(self):
+        emit('pong')
 
 
-    
+    # ==========================================
+    #    错误处理
+    # ==========================================
+    def on_default_error_handler(self, e):
+        print("======================= ERROR =======================")
+        print(e)
+        print(request.event["message"])
+        print(request.event["args"])
+        print("=====================================================")
+
 
 # =============================================================================================================================
 
@@ -238,36 +252,6 @@ def ros_info_thread(node, robot_name):
     # .                                    10)
     rclpy.spin(node)
     node.destroy_node()
-
-
-class base_socket_handler(Namespace):
-    # ==========================================
-    #    连接事件
-    # ==========================================
-    def on_connect(self):
-    #     global info_thread, node, robot_names, chosen_robot_dict
-    #     with thread_lock:
-    #         if info_thread is None:
-    #             info_thread = socketio.start_background_task(ros_info_thread, node, robot_name)
-        emit('robot_names', {'list': robot_names, 'chosen': chosen_robot_dict})
-
-
-    # ==========================================
-    #    延迟
-    # ==========================================
-    def on_ping(self):
-        emit('pong')
-
-
-    # ==========================================
-    #    错误处理
-    # ==========================================
-    def on_default_error_handler(self, e):
-        print("======================= ERROR =======================")
-        print(e)
-        print(request.event["message"])
-        print(request.event["args"])
-        print("=====================================================")
 
 
 # ==========================================
