@@ -39,7 +39,7 @@ def generate_launch_description():
     )
     ld.add_action(gazebo)
     # robot names
-    robot_names = ['standard_robot_red1', 'standard_robot_blue1']
+    robot_names = ['red_standard_robot1', 'blue_standard_robot1']
     # Spawn robot
     robot_macro = XMLMacro4sdf()
     robot_macro.set_xml_file(robot_xmacro_path)

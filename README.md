@@ -52,7 +52,7 @@ ros2 launch rmua19_ignition_simulator standard_robot_b_test.launch.py
 **控制机器人移动**
 
 ```bash
-ros2 run rmoss_ign_base test_chassis_cmd.py --ros-args -r __ns:=/standard_robot_red1/robot_base -p v:=0.3 -p w:=0.3
+ros2 run rmoss_ign_base test_chassis_cmd.py --ros-args -r __ns:=/red_standard_robot1/robot_base -p v:=0.3 -p w:=0.3
 #根据提示进行输入，支持平移与自旋
 ```
 
@@ -61,7 +61,7 @@ ros2 run rmoss_ign_base test_chassis_cmd.py --ros-args -r __ns:=/standard_robot_
 **控制机器人云台**
 
 ```bash
-ros2 run rmoss_ign_base test_gimbal_cmd.py --ros-args -r __ns:=/standard_robot_red1/robot_base
+ros2 run rmoss_ign_base test_gimbal_cmd.py --ros-args -r __ns:=/red_standard_robot1/robot_base
 #根据提示进行输入，支持绝对角度控制
 ```
 
@@ -70,7 +70,7 @@ ros2 run rmoss_ign_base test_gimbal_cmd.py --ros-args -r __ns:=/standard_robot_r
 **机器人射击**
 
 ```bash
-ros2 run rmoss_ign_base test_shoot_cmd.py --ros-args -r __ns:=/standard_robot_red1/robot_base
+ros2 run rmoss_ign_base test_shoot_cmd.py --ros-args -r __ns:=/red_standard_robot1/robot_base
 #根据提示进行输入
 ```
 
@@ -100,15 +100,15 @@ ros2 run rmua19_ignition_simulator simple_competition_1v1_referee.py
 
 **控制机器人-ROS2接口**
 
-例如，对于standard_robot_red1，有如下ROS2 topic接口使用，可用于机器人控制和感知。(对于standard_robot_blue1同理)
+例如，对于red_standard_robot1，有如下ROS2 topic接口使用，可用于机器人控制和感知。(对于standard_robot_blue1同理)
 
 ```bash
-/standard_robot_red1/robot_base/chassis_cmd
-/standard_robot_red1/robot_base/gimbal_state
-/standard_robot_red1/robot_base/odom
-/standard_robot_red1/robot_base/shoot_cmd
-/standard_robot_red1/front_camera/image
-/standard_robot_red1/rplidar_a2/scan
+/red_standard_robot1/robot_base/chassis_cmd
+/red_standard_robot1/robot_base/gimbal_state
+/red_standard_robot1/robot_base/odom
+/red_standard_robot1/robot_base/shoot_cmd
+/red_standard_robot1/front_camera/image
+/red_standard_robot1/rplidar_a2/scan
 ```
 
 ### 4. 维护者及开源许可证
