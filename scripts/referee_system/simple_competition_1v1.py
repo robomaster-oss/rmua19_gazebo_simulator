@@ -192,9 +192,13 @@ class SimpleRefereeSystem():
         elif msg.cmd == msg.KILL_ROBOT:
             if msg.robot_name in self.robots.keys():
                 self.robots[msg.robot_name].enable_power(False)
+                self.robots[msg.robot_name].remain_hp = 0
+                self.robots[msg.robot_name].survive = False
         elif msg.cmd == msg.REVIVE_ROBOT:
             if msg.robot_name in self.robots.keys():
                 self.robots[msg.robot_name].enable_power(True)
+                self.robots[msg.robot_name].remain_hp = self.robots[msg.robot_name].max_hp
+                self.robots[msg.robot_name].survive = True
 
 def main(args=None):
     rclpy.init(args=args)
