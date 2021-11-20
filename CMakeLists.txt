@@ -25,7 +25,7 @@ install( DIRECTORY
 
 # Install executable scripts
 install(PROGRAMS 
-        scripts/simple_competition_1v1_referee.py 
+        scripts/referee_system/simple_competition_1v1.py 
     DESTINATION lib/${PROJECT_NAME})
 
 #environment

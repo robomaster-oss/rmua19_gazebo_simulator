@@ -27,6 +27,7 @@ def generate_launch_description():
     world_sdf_path = os.path.join(pkg_rmua19_ignition_simulator, 'resource', 'worlds', 'rmua19_world.sdf')
     robot_xmacro_path = os.path.join(pkg_rmua19_ignition_simulator, 'resource', 'xmacro', 'rmua19_standard_robot_b.sdf.xmacro')
     robot_config = os.path.join(pkg_rmua19_ignition_simulator, 'config', 'base_params.yaml')
+    referee_config = os.path.join(pkg_rmua19_ignition_simulator, 'config', 'referee_system_1v1.yaml')
     ign_config_path = os.path.join(pkg_rmua19_ignition_simulator, 'ign', 'gui.config')
     # Gazebo launch
     gazebo = IncludeLaunchDescription(
@@ -95,7 +96,19 @@ def generate_launch_description():
             '/referee_system/attack_info@std_msgs/msg/String[ignition.msgs.StringMsg',
             '/referee_system/shoot_info@std_msgs/msg/String[ignition.msgs.StringMsg',
         ],
+        remappings=[
+            ('/referee_system/attack_info','/referee_system/ign/attack_info'),
+            ('/referee_system/shoot_info','/referee_system/ign/shoot_info'),
+        ],
         output='screen'
     )
     ld.add_action(referee_ign_bridge)
+    referee_system = Node(
+        package='rmua19_ignition_simulator',
+        executable='simple_competition_1v1.py',
+        namespace='referee_system',
+        parameters=[referee_config],
+        output='screen'
+    )
+    ld.add_action(referee_system)
     return ld
