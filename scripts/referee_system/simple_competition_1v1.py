@@ -1,9 +1,12 @@
 #!/usr/bin/python3
+import time
 import rclpy
 from rclpy.node import Node
 
 from std_msgs.msg import Bool, String
 from rmoss_interfaces.msg import RefereeCmd,RobotStatus
+from geometry_msgs.msg import TransformStamped
+from tf2_msgs.msg import TFMessage
 
 def parse_attack_info(attack_str):
     # parse msg
@@ -31,7 +34,8 @@ def parse_attack_info(attack_str):
 class StandardRobot:
     def __init__(self,node,robot_name):
         self.node = node
-        self.survive = True
+        self.initial_tf = None
+        self.tf = None
         self.robot_name = robot_name
         status_topic = '/referee_system/' + robot_name + '/robot_status'
         self.status_pub = node.create_publisher(RobotStatus, status_topic, 10)
@@ -47,6 +51,7 @@ class StandardRobot:
         self.remain_hp = self.max_hp
         self.used_projectiles = 0
         self.hit_projectiles = 0
+        self.survive = True
 
     def enable_power(self, enable):
         msg = Bool()
@@ -58,12 +63,17 @@ class StandardRobot:
         msg.data = enable
         self.enable_control_pub.publish(msg)
 
-    def change_hp(self, num):
-        self.remain_hp = self.remain_hp + num
+    def update_hp(self, hp):
+        self.remain_hp = self.remain_hp + hp
         if self.remain_hp < 0:
             self.remain_hp = 0
         if self.remain_hp > self.max_hp:
             self.remain_hp = self.max_hp
+
+    def update_tf(self, tf):
+        self.tf = tf
+        if self.initial_tf is None:
+            self.initial_tf = tf
 
     def supply_projectile(self,num):
         self.total_projectiles = self.total_projectiles + num
@@ -81,6 +91,8 @@ class StandardRobot:
         msg.total_projectiles = self.total_projectiles
         msg.used_projectiles = self.used_projectiles
         msg.hit_projectiles = self.hit_projectiles
+        if self.tf is not None:
+            msg.gt_tf = self.tf
         self.status_pub.publish(msg)
 
 class SimpleRefereeSystem():
@@ -98,7 +110,16 @@ class SimpleRefereeSystem():
             '/referee_system/ign/shoot_info',
             self.shoot_info_callback,
             50)
-        self.reset_sub = node.create_subscription(
+        self.pose_info_sub = node.create_subscription(
+            TFMessage,
+            '/referee_system/ign/pose_info',
+            self.pose_info_callback,
+            50)
+        self.set_pose_pub = node.create_publisher(
+            TransformStamped,
+            '/referee_system/ign/set_pose',
+            10)
+        self.referee_cmd_sub = node.create_subscription(
             RefereeCmd,
             '/referee_system/referee_cmd',
             self.referee_cmd_callback,
@@ -124,7 +145,7 @@ class SimpleRefereeSystem():
         # process attack info
         if 'armor' in target_link_name:
             if target_model_name in self.robots.keys():
-                self.robots[target_model_name].change_hp(-10)
+                self.robots[target_model_name].update_hp(-10)
         if shooter_model_name in self.robots.keys():
             self.robots[shooter_model_name].record_hit()
 
@@ -144,7 +165,12 @@ class SimpleRefereeSystem():
             return
         self.robots[shooter_model_name].consume_projectile()
         if vel > 30:
-            self.robots[shooter_model_name].change_hp(-10)
+            self.robots[shooter_model_name].update_hp(-10)
+
+    def pose_info_callback(self, msg: TFMessage):
+        for obj_tf in msg.transforms:
+            if obj_tf.child_frame_id in self.robots.keys():
+                self.robots[obj_tf.child_frame_id].update_tf(obj_tf.transform)
 
     def timer_cb(self):
         if self.game_over:
@@ -173,6 +199,15 @@ class SimpleRefereeSystem():
         if msg.cmd == msg.PREPARATION:
             self.game_over = True
             for robot in self.robots.values():
+                robot.enable_power(False)
+            for robot_name, robot in self.robots.items():
+                assert robot.initial_tf is not None
+                msg = TransformStamped()
+                msg.child_frame_id = robot_name
+                msg.transform = robot.initial_tf
+                self.set_pose_pub.publish(msg)
+                time.sleep(0.05)
+            for robot in self.robots.values():
                 robot.enable_power(True)
         elif msg.cmd == msg.SELF_CHECKING:
             self.game_over = False
@@ -191,14 +226,16 @@ class SimpleRefereeSystem():
                 robot.enable_power(False)
         elif msg.cmd == msg.KILL_ROBOT:
             if msg.robot_name in self.robots.keys():
-                self.robots[msg.robot_name].enable_power(False)
-                self.robots[msg.robot_name].remain_hp = 0
-                self.robots[msg.robot_name].survive = False
+                robot = self.robots[msg.robot_name]
+                robot.enable_power(False)
+                robot.remain_hp = 0
+                robot.survive = False
         elif msg.cmd == msg.REVIVE_ROBOT:
             if msg.robot_name in self.robots.keys():
-                self.robots[msg.robot_name].enable_power(True)
-                self.robots[msg.robot_name].remain_hp = self.robots[msg.robot_name].max_hp
-                self.robots[msg.robot_name].survive = True
+                robot = self.robots[msg.robot_name]
+                robot.enable_power(True)
+                robot.remain_hp = robot.max_hp
+                robot.survive = True
 
 def main(args=None):
     rclpy.init(args=args)

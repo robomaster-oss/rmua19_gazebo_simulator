@@ -103,6 +103,14 @@ def generate_launch_description():
         output='screen'
     )
     ld.add_action(referee_ign_bridge)
+    referee_ign_bridge2 = Node(
+        package='rmoss_ign_bridge',
+        executable='pose_bridge',
+        namespace='referee_system',
+        parameters=[{'robot_filter': True}],
+        output='screen'
+    )
+    ld.add_action(referee_ign_bridge2)
     referee_system = Node(
         package='rmua19_ignition_simulator',
         executable='simple_competition_1v1.py',
