@@ -43,27 +43,26 @@ function start_socket_transfer() {
     var i = 0
     var ping_arr = []
     var my_camera = document.getElementById("camera")
-    var blue_bar = $('#hp_bar_blue')
-    var red_bar = $('#hp_bar_red')
+    var hp_bar = $('#hp_bar')
     socket = window.socket
     socket.on('image', function (message) {
         i++
         my_camera.setAttribute('src', 'data:image/png;base64,' + message.img)
     });
-    socket.on('blue_hp', function (message) {
-        console.log('blue_hp', message.value)
+    socket.on('hp', function (message) {
+        console.log('hp', message.value)
         var hp = message.value
         // console.log(`${hp/5}%`)
-        blue_bar.css("width", `${hp / 5}%`)
+        hp_bar.css("width", `${hp / 5}%`)
         // blue_bar.val(hp+'')
-        $('#blue_hp_text').text(hp + '')
+        $('#hp_text').text(hp + '')
     });
-    socket.on('red_hp', function (message) {
-        console.log('red_hp', message.value)
-        var hp = message.value
-        red_bar.css("width", `${hp / 5}%`)
-        $('#red_hp_text').text(hp + '')
-    });
+    // socket.on('red_hp', function (message) {
+    //     console.log('red_hp', message.value)
+    //     var hp = message.value
+    //     red_bar.css("width", `${hp / 5}%`)
+    //     $('#red_hp_text').text(hp + '')
+    // });
     window.fp_timer = setInterval(() => {
         start_time = (new Date).getTime();
         // console.log("帧率:" + i)

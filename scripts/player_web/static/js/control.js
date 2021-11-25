@@ -18,7 +18,6 @@ function mouse_up_controller(){
 	active_map['shoot'] = false
 	$("#shoot").removeClass("key_active");
 }
-
 function select_robot(element, name, can_choose){
 	console.log(can_choose)
 	if(!can_choose) return
