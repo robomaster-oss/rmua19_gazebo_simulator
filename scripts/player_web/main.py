@@ -32,7 +32,7 @@ import time
 # ==========================================
 #    ros functions
 # ==========================================
-from ros_handler import *
+from player_ros_handler import *
 
 # ==========================================
 #    robot list
@@ -40,13 +40,6 @@ from ros_handler import *
 robot_names = ['red_standard_robot1', 'blue_standard_robot1']
 chosen_robot_dict = {}
 node = None
-
-# ==========================================
-#    constant
-# ==========================================
-BLUE_HP=0
-RED_HP=1
-ATTACK_INFO=2
 
 # ==========================================
 #    用于调试
@@ -127,8 +120,6 @@ class RobotSocketHandler(Namespace):
             self.speed = max((self.speed - 1), 1.0)
         if message['shoot']:
             shoot = True
-        if message['reset']:
-            reset_hp()
         movement_yaw = message['movementX']
         movement_pitch = message['movementY']
         if movement_pitch<=0:
@@ -195,8 +186,8 @@ def send_instruction(chassis_x, chassis_y, gimbal_pitch, gimbal_yaw, shoot, shoo
 # ==========================================
 #       重置血量
 # ==========================================
-def reset_hp():
-    publish_reset_cmd_msg(reset_cmd_pub)
+# def reset_hp():
+#     publish_reset_cmd_msg(reset_cmd_pub)
 
 # ==========================================
 #    发送血量、弹药量、图像数据给前端的线程
@@ -213,6 +204,7 @@ def send_img_callback(robot_name):
         #     start_time = time.time()
         # counter = counter + 1
         # ==========================================
+        # print('send')
         np_img = np.reshape(msg.data, (msg.height, msg.width, 3)).astype(np.uint8)
         img = cv2.cvtColor(np_img, cv2.COLOR_RGB2BGR)
         image = cv2.imencode('.jpg', img)[1]
@@ -224,15 +216,16 @@ def send_img_callback(robot_name):
 # ==========================================
 #    发送血量、弹药量、图像数据给前端
 # ==========================================
-def send_refere_info_callback(kind, robot_name):
+def send_refere_info_callback( robot_name):
     global BLUE_HP, RED_HP, ATTACK_INFO
     def func(message):
-        if kind == BLUE_HP:
-            socketio.emit('blue_hp', {'value': message.remain_hp}, namespace='/'+robot_name)
-        elif kind == RED_HP:
-            socketio.emit('red_hp', {'value': message.remain_hp}, namespace='/'+robot_name)
-        else:    
-            socketio.emit('attack', {'value': message.remain_hp}, namespace='/'+robot_name)
+        socketio.emit('hp', {'value': message.remain_hp}, namespace='/'+robot_name)
+        # if kind == BLUE_HP:
+        #     socketio.emit('blue_hp', {'value': message.remain_hp}, namespace='/'+robot_name)
+        # elif kind == RED_HP:
+        #     socketio.emit('red_hp', {'value': message.remain_hp}, namespace='/'+robot_name)
+        # else:    
+        #     socketio.emit('attack', {'value': message.remain_hp}, namespace='/'+robot_name)
 
     return func
 
@@ -244,10 +237,10 @@ def ros_info_thread(node, robot_name):
     for robot_name in robot_names:
         img_sub = node.create_subscription(Image, '/%s/front_camera/image' % (robot_name), send_img_callback(robot_name),
                                         45)
-        blue_hp_sub = node.create_subscription(RobotStatus, '/referee_system/blue_standard_robot1/robot_status', send_refere_info_callback(BLUE_HP, robot_name),
+        hp_sub = node.create_subscription(RobotStatus, '/referee_system/%s/robot_status' % (robot_name), send_refere_info_callback(robot_name),
                                         10)
-        red_hp_sub = node.create_subscription(RobotStatus, '/referee_system/red_standard_robot1/robot_status', send_refere_info_callback(RED_HP, robot_name),
-                                        10)
+        # red_hp_sub = node.create_subscription(RobotStatus, '/referee_system/red_standard_robot1/robot_status', send_refere_info_callback(RED_HP, robot_name),
+        #                                 10)
     # attack_info_sub = node.create_subscription(String, '/referee_system/attack_info', send_refere_info_callback(ATTACK_INFO),
     # .                                    10)
     rclpy.spin(node)
@@ -278,7 +271,7 @@ socketio.on_namespace(BaseSocketHandler('/'))
 for robot_name in robot_names:
     print('robot_name:'+robot_name)
     socketio.on_namespace(RobotSocketHandler('/'+robot_name))
-reset_cmd_pub = node.create_publisher(Int32, '/referee_system/reset', 10)
+# reset_cmd_pub = node.create_publisher(Int32, '/referee_system/reset', 10)
 
 if __name__ == '__main__':
     port=5000
