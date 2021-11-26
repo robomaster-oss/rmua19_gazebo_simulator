@@ -112,13 +112,6 @@ class RefereeSocketHandler(Namespace):
 # ==========================================
 #    发送血量、弹药量、图像数据给前端
 # ==========================================
-
-        # 'name': 'string',
-        # 'remain_hp': 'int32',
-        # 'max_hp': 'int32',
-        # 'total_projectiles': 'int32',
-        # 'used_projectiles': 'int32',
-        # 'hit_projectiles': 'int32',
 def send_refere_info_callback( robot_name):
     def func(message):
         # print(message)
@@ -129,12 +122,6 @@ def send_refere_info_callback( robot_name):
         'used_projectiles':message.used_projectiles,
         'hit_projectiles':message.hit_projectiles
         })
-        # if kind == BLUE_HP:
-        #     socketio.emit('blue_hp', {'value': message.remain_hp}, namespace='/'+robot_name)
-        # elif kind == RED_HP:
-        #     socketio.emit('red_hp', {'value': message.remain_hp}, namespace='/'+robot_name)
-        # else:    
-        #     socketio.emit('attack', {'value': message.remain_hp}, namespace='/'+robot_name)
 
     return func
 
@@ -173,7 +160,6 @@ node=rclpy.create_node('referee_web')
 socketio.on_namespace(RefereeSocketHandler('/'))
 
 if __name__ == '__main__':
-    port=5000
     if len(sys.argv) == 3:
         robot_name = str(sys.argv[1])
         port = int(sys.argv[2])
