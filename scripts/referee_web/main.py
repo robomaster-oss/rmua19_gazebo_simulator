@@ -87,13 +87,13 @@ class RefereeSocketHandler(Namespace):
 
     def on_control(self, message):
         
-        robot_name = message['robot_name']
+        robot_name = message.get('robot_name','')
         instruction = message['instruction']
         cmd = control_map[instruction]
         msg = RefereeCmd()
         msg.cmd = cmd
         msg.robot_name = robot_name
-        self.referee_pub.pub(msg)
+        self.referee_pub.publish(msg)
         
         
 
