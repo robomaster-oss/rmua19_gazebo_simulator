@@ -78,9 +78,9 @@ function init_socket() {
                     </div>
                 </div>
                 <button type="button" class="btn btn-primary" style="margin-bottom: 10px;width: 100%;height:13%;"
-                    onclick="revive(this,'${robot_names[i]}')">复活</button>
+                    onclick="revive('${robot_names[i]}')">复活</button>
                 <button type="button" class="btn btn-danger" style="margin-bottom: 10px;width: 100%;height:13%;"
-                    onclick="kill(this,'${robot_names[i]}')">罚下</button>
+                    onclick="kill('${robot_names[i]}')">罚下</button>
             </div>
         
             
@@ -99,6 +99,49 @@ function init_socket() {
         console.log('disconnect')
     });
 
+}
+
+function revive(rob_name){
+    let map = {
+        'robot_name': rob_name,
+        'instruction': 'REVIVE_ROBOT'
+    }
+    socket.emit('control', map);
+    console.log('revive:'+rob_name)
+    
+}
+
+function kill(rob_name){
+    let map = {
+        'robot_name': rob_name,
+        'instruction': 'KILL_ROBOT'
+    }
+    socket.emit('control', map);
+    console.log('kill:'+rob_name)
+}
+
+function start_game(){
+    let map = {
+        'instruction': 'START_GAME'
+    }
+    socket.emit('control', map);
+    console.log('start game!')
+}
+
+function stop_game(){
+    let map = {
+        'instruction': 'STOP_GAME'
+    }
+    socket.emit('control', map);
+    console.log('stop game!')
+}
+
+function reset_game(){
+    let map = {
+        'instruction': 'SELF_CHECKING'
+    }
+    socket.emit('control', map);
+    console.log('reset game!')
 }
 
 //------------------------------------
