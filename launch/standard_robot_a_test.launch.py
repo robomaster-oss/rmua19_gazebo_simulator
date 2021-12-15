@@ -27,8 +27,8 @@ def generate_launch_description():
     pkg_rmua19_ignition_simulator = get_package_share_directory('rmua19_ignition_simulator')
     world_sdf_path = os.path.join(pkg_rmua19_ignition_simulator, 'resource', 'worlds', 'rmua19_world.sdf')
     robot_xmacro_path = os.path.join(pkg_rmua19_ignition_simulator, 'resource', 'xmacro', 'rmua19_standard_robot_a.sdf.xmacro')
+    ign_config_path = os.path.join(pkg_rmua19_ignition_simulator, 'resource', 'ign', 'gui.config')
     robot_config = os.path.join(pkg_rmua19_ignition_simulator, 'config', 'base_params.yaml')
-    ign_config_path = os.path.join(pkg_rmua19_ignition_simulator, 'ign', 'gui.config')
     # Gazebo launch
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
