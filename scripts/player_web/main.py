@@ -32,7 +32,7 @@ import time
 # ==========================================
 #    ros functions
 # ==========================================
-from player_ros_handler import *
+from ros_handler import *
 
 # ==========================================
 #    robot list
