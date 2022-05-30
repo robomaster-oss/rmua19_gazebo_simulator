@@ -33,6 +33,7 @@ sudo apt-get install ros-galactic-ros-ign
 pip install xmacro
 # cd src directory of ros2 workspace 
 git clone https://github.com/robomaster-oss/rmoss_interfaces
+git clone https://github.com/robomaster-oss/rmoss_core
 git clone https://github.com/robomaster-oss/rmoss_gazebo
 git clone https://github.com/robomaster-oss/rmoss_ign_resources
 git clone https://github.com/robomaster-oss/rmua19_ignition_simulator
