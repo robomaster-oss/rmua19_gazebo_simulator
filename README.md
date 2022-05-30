@@ -2,7 +2,7 @@
 
 ### 1. 简介
 
-rmua19_ignition_simulator是基于Ignition Gazebo的仿真环境，为RoboMaster University AI Challenge 2019中的机器人算法开发提供仿真环境，方便测试AI算法，加快开发效率。
+rmua19_ignition_simulator是基于Gazebo (Ignition 字母版本)的仿真环境，为RoboMaster University AI Challenge 2019中的机器人算法开发提供仿真环境，方便测试AI算法，加快开发效率。
 
 ![](doc/imgs/start.png)
 
@@ -17,14 +17,14 @@ rmua19_ignition_simulator是基于Ignition Gazebo的仿真环境，为RoboMaster
 
 > RoboMaster University AI Challenge 2019标准机器人机器人模型(rmua19_standard_robot)位于[rmoss_ign_resources](https://github.com/robomaster-oss/rmoss_ign_resources)
 >
-> 注意：[Ignition Gazebo](https://github.com/ignitionrobotics/ign-gazebo)目前依然处于快速开发期，仿真功能不完善，且可能存在Bug。
+> 注意：[Gazebo (Ignition 字母版本)](https://github.com/gazebosim/gz-sim)目前依然处于快速开发期，仿真功能不完善，且可能存在Bug。
 
 ### 2. 基本使用
 
 **环境配置**
 
 * ROS2版本要求: `Galatic` (目前处于开发期，基于ROS2最新版本)
-* Ignition仿真器版本要求: ` Edifice` (目前处于开发期，基于Ignition最新版本)
+* Gazebo仿真器版本要求: ` Edifice` (目前新版本Gazebo处于开发期)
 
 ```bash
 # install ros-ign package
@@ -33,7 +33,7 @@ sudo apt-get install ros-galactic-ros-ign
 pip install xmacro
 # cd src directory of ros2 workspace 
 git clone https://github.com/robomaster-oss/rmoss_interfaces
-git clone https://github.com/robomaster-oss/rmoss_ign
+git clone https://github.com/robomaster-oss/rmoss_gazebo
 git clone https://github.com/robomaster-oss/rmoss_ign_resources
 git clone https://github.com/robomaster-oss/rmua19_ignition_simulator
 # cd ros2 workspace
@@ -47,7 +47,7 @@ colcon build
 ros2 launch rmua19_ignition_simulator standard_robot_b_test.launch.py 
 ```
 
-* 注意：需要点击ignition界面上的橙红色的`启动`按钮
+* 注意：需要点击Gazebo界面上的橙红色的`启动`按钮
 
 **控制机器人移动**
 
