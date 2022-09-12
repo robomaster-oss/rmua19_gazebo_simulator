@@ -24,11 +24,11 @@ from xmacro.xmacro4sdf import XMLMacro4sdf
 
 def generate_launch_description():
     ld = LaunchDescription()
-    pkg_rmua19_ignition_simulator = get_package_share_directory('rmua19_ignition_simulator')
-    world_sdf_path = os.path.join(pkg_rmua19_ignition_simulator, 'resource', 'worlds', 'rmua19_world.sdf')
-    robot_xmacro_path = os.path.join(pkg_rmua19_ignition_simulator, 'resource', 'xmacro', 'rmua19_standard_robot_a.sdf.xmacro')
-    ign_config_path = os.path.join(pkg_rmua19_ignition_simulator, 'resource', 'ign', 'gui.config')
-    robot_config = os.path.join(pkg_rmua19_ignition_simulator, 'config', 'base_params.yaml')
+    pkg_rmua19_gazebo_simulator = get_package_share_directory('rmua19_gazebo_simulator')
+    world_sdf_path = os.path.join(pkg_rmua19_gazebo_simulator, 'resource', 'worlds', 'rmua19_world.sdf')
+    robot_xmacro_path = os.path.join(pkg_rmua19_gazebo_simulator, 'resource', 'xmacro', 'rmua19_standard_robot_a.sdf.xmacro')
+    ign_config_path = os.path.join(pkg_rmua19_gazebo_simulator, 'resource', 'ign', 'gui.config')
+    robot_config = os.path.join(pkg_rmua19_gazebo_simulator, 'config', 'base_params.yaml')
     # Gazebo launch
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -55,7 +55,7 @@ def generate_launch_description():
     # robot base for each robot
     for robot_name in robot_names:
         robot_base = Node(
-            package='rmoss_ign_base',
+            package='rmoss_gz_base',
             executable='rmua19_robot_base',
             namespace=robot_name,
             parameters=[

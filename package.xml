@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-    <name>rmua19_ignition_simulator</name>
+    <name>rmua19_gazebo_simulator</name>
     <version>1.0.0</version>
     <description>Ignition Simulator for RoboMaster University AI Challenge 2019</description>
     <maintainer email="zhenpeng.ge@qq.com">Zhenpeng Ge</maintainer>
@@ -13,10 +13,10 @@
     <build_depend>rmoss_interfaces</build_depend>
     <depend>ros_ign_gazebo</depend>
     <depend>ros_ign_bridge</depend>
-    <depend>rmoss_ign_base</depend>
-    <depend>rmoss_ign_cam</depend>
-    <depend>rmoss_ign_resources</depend>
-    <depend>rmoss_ign_plugins</depend>
+    <depend>rmoss_gz_base</depend>
+    <depend>rmoss_gz_cam</depend>
+    <depend>rmoss_gz_resources</depend>
+    <depend>rmoss_gz_plugins</depend>
     <test_depend>ament_lint_auto</test_depend>
     <test_depend>ament_lint_common</test_depend>
     <export>

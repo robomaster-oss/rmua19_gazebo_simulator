@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(rmua19_ignition_simulator)
+project(rmua19_gazebo_simulator)
 
 # Default to C++14
 if(NOT CMAKE_CXX_STANDARD)
@@ -15,7 +15,7 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(rmoss_interfaces REQUIRED)
-find_package(rmoss_ign_base REQUIRED)
+find_package(rmoss_gz_base REQUIRED)
 
 # Install
 install( DIRECTORY
@@ -29,7 +29,7 @@ install(PROGRAMS
     DESTINATION lib/${PROJECT_NAME})
 
 #environment
-ament_environment_hooks("${CMAKE_CURRENT_SOURCE_DIR}/env-hooks/ignition.dsv.in")
+ament_environment_hooks("${CMAKE_CURRENT_SOURCE_DIR}/env-hooks/gazebo.dsv.in")
 
 #test
 if(BUILD_TESTING)
