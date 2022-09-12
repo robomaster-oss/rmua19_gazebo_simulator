@@ -76,13 +76,13 @@ ros2 run rmoss_gz_base test_shoot_cmd.py --ros-args -r __ns:=/red_standard_robot
 ```
 
 * 射击功能基于`rmoss_gz`中的插件`ProjectileShooter`，
-* **注意：目前存在未解决BUG (某些情况下会使得物理引擎错误，造成Ignition Gazebo崩溃)**
+* **注意：目前存在未解决BUG (某些情况下会使得物理引擎错误，造成Gazebo崩溃)**
 
 ### 3. 简易竞赛模式1v1
 
 * 目前测试中，射击功能存在已知BUG，以及可能存在其他未知BUG，请谨慎使用。
 
-**运行Ignition Gazebo仿真器**
+**运行Gazebo仿真器**
 
 ```bash
 ros2 launch rmua19_gazebo_simulator simple_competition_1v1.launch.py 
