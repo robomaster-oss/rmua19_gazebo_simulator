@@ -11,8 +11,8 @@
     <build_depend>std_msgs</build_depend>
     <build_depend>geometry_msgs</build_depend>
     <build_depend>rmoss_interfaces</build_depend>
-    <depend>ros_ign_gazebo</depend>
-    <depend>ros_ign_bridge</depend>
+    <depend>ros_gz_sim</depend>
+    <depend>ros_gz_bridge</depend>
     <depend>rmoss_gz_base</depend>
     <depend>rmoss_gz_cam</depend>
     <depend>rmoss_gz_resources</depend>

@@ -27,16 +27,19 @@ rmua19_gazebo_simulator是基于Gazebo (Ignition 字母版本)的仿真环境，
 * Gazebo仿真器版本要求: ` Fortress` (目前新版本Gazebo处于开发期)
 
 ```bash
-# install ros-ign package
-sudo apt-get install ros-humble-ros-ign
+# install gazebo dependencies
+sudo apt-get install ignition-fortress libignition-cmake2-dev ros-humble-ros-gz
 # install xmacro (xml macro tool for sdf)
 pip install xmacro
 # cd src directory of ros2 workspace 
 git clone https://github.com/robomaster-oss/rmoss_interfaces -b humble
 git clone https://github.com/robomaster-oss/rmoss_core -b humble
 git clone https://github.com/robomaster-oss/rmoss_gazebo -b humble
-git clone https://github.com/robomaster-oss/rmoss_gz_resources -b humble
+git clone https://github.com/robomaster-oss/rmoss_gz_resources -b humble --depth=1
 git clone https://github.com/robomaster-oss/rmua19_gazebo_simulator -b humble
+# cd ros2 workspaces
+cd ..
+rosdep install -y -r -q --from-paths src --ignore-src --rosdistro humble
 # cd ros2 workspace
 colcon build
 ```

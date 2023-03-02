@@ -32,7 +32,7 @@ def generate_launch_description():
     # Gazebo launch
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(get_package_share_directory('ros_ign_gazebo'), 'launch', 'ign_gazebo.launch.py'),
+            os.path.join(get_package_share_directory('ros_gz_sim'), 'launch', 'gz_sim.launch.py'),
         ),
         launch_arguments={
             'ign_args': world_sdf_path + ' -v 4 --gui-config ' + ign_config_path,
@@ -47,7 +47,7 @@ def generate_launch_description():
     robot_macro.generate({'global_initial_color': 'red'})
     robot_xml = robot_macro.to_string()
     spawn1 = Node(
-        package='ros_ign_gazebo',
+        package='ros_gz_sim',
         executable='create',
         arguments=['-name', robot_names[0] ,'-x', '-3.5','-y', '-2','-z', '0.08', '-string', robot_xml],
         output='screen')
@@ -64,7 +64,7 @@ def generate_launch_description():
             ],
             output='screen')
         robot_ign_bridge = Node(
-            package='ros_ign_bridge',
+            package='ros_gz_bridge',
             executable='parameter_bridge',
             namespace=robot_name,
             arguments=[
